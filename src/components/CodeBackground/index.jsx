@@ -4,24 +4,27 @@ export default class CodeBackground extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      testList: []
+      randomNumber: 0,
+      showTitle: false
     }
-    setInterval(this.onInterval.bind(this), 100);
+    setInterval(this.onInterval.bind(this), 3000);
   }
 
   onInterval() {
-    var currentTestList = this.state.testList.slice();
-    currentTestList.push("hello");
     this.setState({
-      testList: currentTestList
+      randomNumber: Math.floor(Math.random() * 10),
+      showTitle: !this.state.showTitle
     })
   }
 
   render() {
+    var x = [];
+    while(x.length<this.state.randomNumber) x.push(this.state.randomNumber);
     return(
       <div>
-        {this.state.testList.map(function(item){
-          return <div>{item}</div>
+        {this.state.showTitle?<h1>Title</h1>:null}
+        {x.map(function(n,i){
+          return <div key={"x"+i}>Number {n}</div>
         })}
       </div>
     )
