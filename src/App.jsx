@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactDOMServer from 'react-dom/server'
 import MainApp from './components/MainApp';
 import CupsAndBalls from './components/CupsAndBalls';
 
@@ -8,8 +7,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainAppHTML: "testing",
-      mainAppComponent: null
+      mainAppComponent: null,
+      mainAppUpdateCount: 0
     }
   }
 
@@ -20,18 +19,17 @@ class App extends React.Component {
   }
 
   onMainAppRender() {
-    if(this.state.mainAppComponent) {
-      this.setState({
-        mainAppHTML: ReactDOMServer.renderToStaticMarkup(this.state.mainAppComponent)
-      })
-    }
+    // currently triggering code re-render with this, which is... not the best
+    this.setState({
+      mainAppUpdateCount: this.state.mainAppUpdateCount + 1
+    })
   }
 
   render() {
     return(
       <div>
         {this.state.mainAppComponent}
-        <CupsAndBalls mainAppHTML={this.state.mainAppHTML} />
+        <CupsAndBalls mainAppComponent={this.state.mainAppComponent} />
       </div>
     )
   }

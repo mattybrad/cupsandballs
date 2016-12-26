@@ -10,7 +10,15 @@ export default class MainApp extends React.Component {
 
   render() {
     return(
-      <div>Main App</div>
+      <div>
+        <h1>Main App</h1>
+        <p>This is the main app!</p>
+        <ul>
+          <li>Testing</li>
+          <li>Hello</li>
+          <li>Hi</li>
+        </ul>
+      </div>
     )
   }
 }
