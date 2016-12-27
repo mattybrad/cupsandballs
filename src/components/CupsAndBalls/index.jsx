@@ -19,7 +19,6 @@ export default class CupsAndBalls extends React.Component {
   }
 
   render() {
-    console.log(styles);
     return(
       <pre className={classNames(styles.this)}>{this.state.prettyHTML}</pre>
     )
