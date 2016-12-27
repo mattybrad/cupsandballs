@@ -1,6 +1,8 @@
 import React from 'react';
 import pretty from 'pretty';
 import ReactDOMServer from 'react-dom/server';
+import classNames from 'classnames';
+import styles from './index.css';
 
 export default class CupsAndBalls extends React.Component {
   constructor(props) {
@@ -17,8 +19,9 @@ export default class CupsAndBalls extends React.Component {
   }
 
   render() {
+    console.log(styles);
     return(
-      <pre>{this.state.prettyHTML}</pre>
+      <pre className={classNames(styles.this)}>{this.state.prettyHTML}</pre>
     )
   }
 }
