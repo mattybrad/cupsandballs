@@ -1,38 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainApp from './components/MainApp';
+import MainAppOuter from './components/MainAppOuter';
 import CupsAndBalls from './components/CupsAndBalls';
 import classNames from 'classnames';
 import styles from './index.css';
+import * as Pages from './pages';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mainAppComponent: null,
-      mainAppUpdateCount: 0
-    }
-  }
-
-  componentWillMount() {
-    this.setState({
-      mainAppComponent: <MainApp onRender={this.onMainAppRender.bind(this)} />
-    })
-  }
-
-  onMainAppRender() {
-    // currently triggering code re-render with this, which is... not the best
-    this.setState({
-      mainAppUpdateCount: this.state.mainAppUpdateCount + 1
-    })
-  }
 
   render() {
     return(
-      <div className={classNames(styles.this)}>
-        {this.state.mainAppComponent}
-        <CupsAndBalls mainAppComponent={this.state.mainAppComponent} />
-      </div>
+      <Router history={browserHistory}>
+        <Route path="" component={MainAppOuter}>
+          <Route path="/" component={Pages.Home} />
+          <Route path="away" component={Pages.Away} />
+        </Route>
+      </Router>
     )
   }
 }
