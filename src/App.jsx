@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MainApp from './components/MainApp';
 import CupsAndBalls from './components/CupsAndBalls';
+import classNames from 'classnames';
+import styles from './index.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class App extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className={classNames(styles.this)}>
         {this.state.mainAppComponent}
         <CupsAndBalls mainAppComponent={this.state.mainAppComponent} />
       </div>
