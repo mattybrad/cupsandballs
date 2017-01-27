@@ -1,0 +1,12 @@
+.this {
+  text-align: center;
+}
+
+.content {
+  text-align: left;
+  display: inline-block;
+  width: 800px;
+  background: rgba(32,32,32,0.3);
+  height: 100vh;
+  padding: 20px;
+}
