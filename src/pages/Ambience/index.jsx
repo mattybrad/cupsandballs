@@ -8,8 +8,8 @@ export default class About extends React.Component {
     return(
       <div>
         <Header />
-        <h1>About</h1>
-        <p>Here is some text</p>
+        <h1>Ambience</h1>
+        <p>Here is some text.</p>
       </div>
     )
   }

@@ -9,7 +9,7 @@ export default class FourZeroFour extends React.Component {
       <div>
         <Header />
         <h1>Page Not Found</h1>
-        <p>Here is some text</p>
+        <p>Here is some text.</p>
       </div>
     )
   }

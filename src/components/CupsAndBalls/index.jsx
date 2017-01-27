@@ -12,9 +12,17 @@ export default class CupsAndBalls extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.makePrettyHTML(this.props.mainAppComponent);
+  }
+
   componentWillReceiveProps(nextProps) {
+    this.makePrettyHTML(nextProps.mainAppComponent);
+  }
+
+  makePrettyHTML(mainAppComponent) {
     this.setState({
-      prettyHTML: pretty(ReactDOMServer.renderToStaticMarkup(nextProps.mainAppComponent))
+      prettyHTML: pretty(ReactDOMServer.renderToStaticMarkup(mainAppComponent))
     })
   }
 
