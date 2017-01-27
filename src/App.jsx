@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainAppOuter from './components/MainAppOuter';
-import CupsAndBalls from './components/CupsAndBalls';
+import Main from './components/Main';
 import classNames from 'classnames';
 import styles from './index.css';
 import * as Pages from './pages';
@@ -12,7 +11,7 @@ class App extends React.Component {
   render() {
     return(
       <Router history={browserHistory}>
-        <Route path="" component={MainAppOuter}>
+        <Route path="" component={Main}>
           <Route path="/" component={Pages.Home} />
           <Route path="away" component={Pages.Away} />
         </Route>
