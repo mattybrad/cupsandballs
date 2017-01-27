@@ -13,7 +13,11 @@ class App extends React.Component {
       <Router history={browserHistory}>
         <Route path="" component={Main}>
           <Route path="/" component={Pages.Home} />
-          <Route path="away" component={Pages.Away} />
+          <Route path="about" component={Pages.About} />
+          <Route path="projects" component={Pages.Projects} />
+          <Route path="blog" component={Pages.Blog} />
+          <Route path="ambience" component={Pages.Ambience} />
+          <Route path="*" component={Pages.FourZeroFour} />
         </Route>
       </Router>
     )

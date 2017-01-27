@@ -1,17 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export default class MainAppOuter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
-
-  componentWillMount() {
-
-  }
+export default class Main extends React.Component {
 
   render() {
     return(
