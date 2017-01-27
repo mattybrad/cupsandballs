@@ -8,6 +8,17 @@ import { Router, Route, Link, browserHistory } from 'react-router';
 
 class App extends React.Component {
 
+  componentDidMount() {
+    // add some pointless but fun console logging for a future-retro kinda vibe
+    window.addEventListener('resize', function() {
+      console.log("window resize detected");
+    })
+    setInterval(function() {
+      console.log("random console message");
+    }, 10000);
+    console.log("website initialised");
+  }
+
   render() {
     return(
       <Router history={browserHistory}>

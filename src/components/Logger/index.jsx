@@ -9,6 +9,11 @@ export default class Logger extends React.Component {
     this.state = {
       logs: []
     }
+    setInterval(function() {
+      if(Math.random()>0.8) {
+        //console.log(Math.random()>0.5?"Test: " + Math.random():"Logging...");
+      }
+    }, 20)
   }
 
   componentDidMount() {
@@ -23,10 +28,12 @@ export default class Logger extends React.Component {
 
   render() {
     return(
-      <div className={classNames(styles.this)}>
-        {this.state.logs.map(function(thisLog, idx) {
-          return <div key={"log"+idx.toString()}>{thisLog}</div>
-        })}
+      <div className={classNames(styles.outerLog)}>
+        <div className={classNames(styles.innerLog)}>
+          {this.state.logs.map(function(thisLog, idx) {
+            return <div key={"log"+idx.toString()}>{thisLog}</div>
+          })}
+        </div>
       </div>
     )
   }

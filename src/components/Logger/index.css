@@ -1,11 +1,12 @@
-.this {
+.outerLog {
   text-align: left;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
   font-family: monospace;
-  transition: color 3s;
+}
+
+.innerLog {
+  z-index: -1;
+  position: absolute;
+  bottom: 50px;
 }
 
 @keyframes loggerAnimation {
@@ -17,7 +18,7 @@
   }
 }
 
-.this div {
+.innerLog div {
   color: #222222;
   animation-name: loggerAnimation;
   animation-duration: 2s;
