@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import CupsAndBalls from '../CupsAndBalls';
+import DomDisplay from '../DomDisplay';
+import Logger from '../Logger';
 import styles from './index.css';
 
 export default class Main extends React.Component {
@@ -11,7 +12,8 @@ export default class Main extends React.Component {
         <div className={classNames(styles.content)}>
           {this.props.children}
         </div>
-        <CupsAndBalls mainAppComponent={this.props.children} />
+        <DomDisplay mainAppComponent={this.props.children} />
+        <Logger />
       </div>
     )
   }

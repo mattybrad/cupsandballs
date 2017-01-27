@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import classNames from 'classnames';
 import styles from './index.css';
 
-export default class CupsAndBalls extends React.Component {
+export default class DomDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

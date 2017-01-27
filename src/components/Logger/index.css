@@ -1,0 +1,24 @@
+.this {
+  text-align: left;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+  font-family: monospace;
+  transition: color 3s;
+}
+
+@keyframes loggerAnimation {
+  from {
+    color: white;
+  }
+  to {
+    color: #222222;
+  }
+}
+
+.this div {
+  color: #222222;
+  animation-name: loggerAnimation;
+  animation-duration: 2s;
+}
