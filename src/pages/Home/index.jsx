@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import BackgroundDefinition from '../../components/BackgroundDefinition';
 import Header from '../../components/Header';
 
 export default class Home extends React.Component {
@@ -8,6 +9,7 @@ export default class Home extends React.Component {
   render() {
     return(
       <div>
+        <BackgroundDefinition primaryColor='#ff0000' secondaryColor='#660000' />
         <Header />
         <h1>{"Matt's website"}</h1>
         <p>My name is Matt and this is my website.</p>

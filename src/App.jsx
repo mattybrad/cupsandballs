@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist'
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers';
@@ -37,16 +38,18 @@ class App extends React.Component {
 
   render() {
     return(
-      <Router history={browserHistory}>
-        <Route path="" component={Main}>
-          <Route path="/" component={Pages.Home} />
-          <Route path="about" component={Pages.About} />
-          <Route path="projects" component={Pages.Projects} />
-          <Route path="blog" component={Pages.Blog} />
-          <Route path="ambience" component={Pages.Ambience} />
-          <Route path="*" component={Pages.FourZeroFour} />
-        </Route>
-      </Router>
+      <Provider store={store}>
+        <Router history={browserHistory}>
+          <Route path="" component={Main}>
+            <Route path="/" component={Pages.Home} />
+            <Route path="about" component={Pages.About} />
+            <Route path="projects" component={Pages.Projects} />
+            <Route path="blog" component={Pages.Blog} />
+            <Route path="ambience" component={Pages.Ambience} />
+            <Route path="*" component={Pages.FourZeroFour} />
+          </Route>
+        </Router>
+      </Provider>
     )
   }
 }

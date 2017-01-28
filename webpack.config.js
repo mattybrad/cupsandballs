@@ -7,6 +7,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
+  devtool: 'eval',
   devServer: {
     port: 3000,
     historyApiFallback: {

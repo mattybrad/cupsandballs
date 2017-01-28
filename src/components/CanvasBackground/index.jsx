@@ -1,8 +1,23 @@
 import React from 'react';
 import classNames from 'classnames';
 import styles from './index.css';
+import * as Actions from '../../actions/BackgroundActions';
+import { connect } from 'react-redux';
 
-export default class CanvasBackground extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+		primaryColor: state.Background.primaryColor,
+		secondaryColor: state.Background.secondaryColor
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+class CanvasBackgroundComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,7 +79,9 @@ export default class CanvasBackground extends React.Component {
   }
 }
 
-CanvasBackground.defaultProps = {
-  primaryColor: '#cc00cc',
-  secondaryColor: '#0000ff'
-}
+const CanvasBackground = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CanvasBackgroundComponent);
+
+export default CanvasBackground;
