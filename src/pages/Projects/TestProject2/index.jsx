@@ -13,5 +13,6 @@ export default class TestProject2 extends React.Component {
   }
 }
 
+TestProject2.shortcode = "testproject2";
 TestProject2.title = "My Second Project";
 TestProject2.description = "This is a description of a second project";

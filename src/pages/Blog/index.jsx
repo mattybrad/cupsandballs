@@ -1,13 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import Header from '../../components/Header';
+import BackgroundDefinition from '../../components/BackgroundDefinition';
+
 
 export default class About extends React.Component {
 
   render() {
     return(
       <div>
-        <Header />
+
         <h1>Blog</h1>
         <p>Here is some text.</p>
       </div>

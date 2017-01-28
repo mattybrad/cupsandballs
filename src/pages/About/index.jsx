@@ -1,15 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../components/BackgroundDefinition';
-import Header from '../../components/Header';
+
 
 export default class About extends React.Component {
 
   render() {
     return(
       <div>
-        <BackgroundDefinition primaryColor='#66cc00' secondaryColor='#006600' />
-        <Header />
+        <BackgroundDefinition primaryColor='#339900' secondaryColor='#006600' />
+
         <h1>About</h1>
         <p>Here is some text.</p>
       </div>

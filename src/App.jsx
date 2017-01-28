@@ -9,7 +9,8 @@ import Main from './components/Main';
 import classNames from 'classnames';
 import styles from './index.css';
 import * as Pages from './pages';
-import { Router, Route, Link, browserHistory } from 'react-router';
+import * as Projects from './pages/projects/allProjects.jsx';
+import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router';
 
 window.store = createStore(
   rootReducer,
@@ -40,11 +41,14 @@ class App extends React.Component {
     return(
       <Provider store={window.store}>
         <Router history={browserHistory}>
-          <Route path="" component={Main}>
-            <Route path="/" component={Pages.Home} />
+          <Route path="/" component={Main}>
+            <IndexRoute component={Pages.Home} />
             <Route path="about" component={Pages.About} />
-            <Route path="projects" component={Pages.Projects} />
-            <Route path="blog" component={Pages.Blog} />
+            <Route path="projects">
+              <IndexRoute component={Pages.Projects} />
+              <Route path={Projects.TestProject.shortcode} component={Projects.TestProject} />
+              <Route path={Projects.TestProject2.shortcode} component={Projects.TestProject2} />
+            </Route>
             <Route path="ambience" component={Pages.Ambience} />
             <Route path="*" component={Pages.FourZeroFour} />
           </Route>

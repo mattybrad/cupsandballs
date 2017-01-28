@@ -1,15 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
-import Header from '../../components/Header';
+import BackgroundDefinition from '../../components/BackgroundDefinition';
+
 
 export default class FourZeroFour extends React.Component {
 
   render() {
     return(
       <div>
-        <Header />
+        <BackgroundDefinition primaryColor='#333333' secondaryColor='#cccccc' />
+
         <h1>Page Not Found</h1>
-        <p>Here is some text.</p>
+        <p>This page does not exist. It may have existed once.</p>
       </div>
     )
   }

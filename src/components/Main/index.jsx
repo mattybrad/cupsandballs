@@ -4,7 +4,7 @@ import DomDisplay from '../DomDisplay';
 import Logger from '../Logger';
 import CanvasBackground from '../CanvasBackground';
 import styles from './index.css';
-
+import Header from '../Header';
 
 export default class Main extends React.Component {
 
@@ -19,6 +19,7 @@ export default class Main extends React.Component {
         <DomDisplay mainAppComponent={this.props.children} />
         <CanvasBackground />
         <div className={classNames(styles.content)}>
+          <Header />
           {this.props.children}
         </div>
       </div>

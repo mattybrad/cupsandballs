@@ -52,7 +52,7 @@ class CanvasBackgroundComponent extends React.Component {
         x = Math.random() * (ctx.canvas.width + 200) - 100;
         y = Math.random() * (ctx.canvas.height + 200) -100;
         var xDiff = 0;
-        if(x<window.innerWidth/2-700/2-150||x>window.innerWidth/2+700/2+150) {
+        if(x<window.innerWidth/2-800/2-150||x>window.innerWidth/2+800/2+150) {
           xDiff = 1;
         }
         ctx.globalAlpha = (xDiff>0)?0.06:0.04;

@@ -1,19 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
-import Header from '../../components/Header';
+import BackgroundDefinition from '../../components/BackgroundDefinition';
+import ProjectPreview from '../../components/ProjectPreview';
 import * as ProjectList from './allProjects.jsx';
 
-export default class About extends React.Component {
+export default class Projects extends React.Component {
 
   render() {
     return(
       <div>
-        <Header />
+        <BackgroundDefinition primaryColor='#000066' secondaryColor='#0066ff' />
         <h1>Projects</h1>
         <p>A list of projects!</p>
         <div>
-          <p>{ProjectList.TestProject.title} - {ProjectList.TestProject.description}</p>
-          <p>{ProjectList.TestProject2.title} - {ProjectList.TestProject2.description}</p>
+          <ProjectPreview project={ProjectList.TestProject} />
+          <ProjectPreview project={ProjectList.TestProject2} />
         </div>
       </div>
     )
