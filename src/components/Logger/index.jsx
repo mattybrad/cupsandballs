@@ -18,13 +18,13 @@ export default class Logger extends React.Component {
 
   componentDidMount() {
     var actualLogFunction = window.console.log;
-    // window.console.log = function() {
-    //   actualLogFunction(arguments.length == 1 ? arguments[0] : arguments);
-    //   this.setState({
-    //     logs: this.state.logs.concat(arguments[0].toString()),
-    //     charactersToDisplay: 0
-    //   })
-    // }.bind(this);
+    window.console.log = function() {
+      actualLogFunction(arguments.length == 1 ? arguments[0] : arguments);
+      this.setState({
+        logs: this.state.logs.concat(arguments[0].toString()),
+        charactersToDisplay: 0
+      })
+    }.bind(this);
     setInterval(this.incrementCharactersToDisplay.bind(this), 20);
 
     // remove preload div - timeout is a hack to stop flicker
