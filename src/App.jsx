@@ -1,10 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import rootReducer from './reducers';
 import Main from './components/Main';
 import classNames from 'classnames';
 import styles from './index.css';
 import * as Pages from './pages';
 import { Router, Route, Link, browserHistory } from 'react-router';
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+  	thunkMiddleware
+  )
+);
 
 class App extends React.Component {
 
@@ -22,7 +33,7 @@ class App extends React.Component {
     window.addEventListener('click', function() {
       console.log("mouse button clicked");
     });
-    console.log("website initialised");
+    console.log("website loaded");
   }
 
   render() {
