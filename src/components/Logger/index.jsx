@@ -8,13 +8,9 @@ export default class Logger extends React.Component {
     super(props);
     this.state = {
       logs: [],
-      isFullHeight: true
+      isFullHeight: true,
+      charactersToDisplay: 0
     }
-    setInterval(function() {
-      if(Math.random()>0.8) {
-        //console.log(Math.random()>0.5?"Test: " + Math.random():"Logging...");
-      }
-    }, 20)
   }
 
   componentDidMount() {
@@ -22,9 +18,11 @@ export default class Logger extends React.Component {
     window.console.log = function() {
       actualLogFunction(arguments.length == 1 ? arguments[0] : arguments);
       this.setState({
-        logs: this.state.logs.concat(arguments[0].toString())
+        logs: this.state.logs.concat(arguments[0].toString()),
+        charactersToDisplay: 0
       })
     }.bind(this);
+    setInterval(this.incrementCharactersToDisplay.bind(this), 20);
   }
 
   componentDidUpdate() {
@@ -46,13 +44,24 @@ export default class Logger extends React.Component {
     }.bind(this), 0);
   }
 
+  incrementCharactersToDisplay() {
+    if(this.state.logs.length) {
+      if(this.state.charactersToDisplay < this.state.logs[this.state.logs.length - 1].length) {
+        this.setState({
+          charactersToDisplay: this.state.charactersToDisplay + 1
+        })
+      }
+    }
+  }
+
   render() {
     var heightClass = this.state.isFullHeight?styles.fullHeight:styles.subFullHeight;
+    var numLogs = this.state.logs.length;
     return(
       <div ref="logger" className={classNames(styles.logger, heightClass)}>
         {this.state.logs.map(function(thisLog, idx) {
-          return <div key={"log"+idx.toString()}>{thisLog}</div>
-        })}
+          return <div key={"log"+idx.toString()}>{idx<numLogs-1?thisLog:thisLog.slice(0,this.state.charactersToDisplay)}</div>
+        }.bind(this))}
       </div>
     )
   }
