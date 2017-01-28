@@ -3,6 +3,7 @@
   font-family: monospace;
   z-index: -1;
   position: fixed;
+  opacity: 0.4;
 }
 
 .logger.subFullHeight {

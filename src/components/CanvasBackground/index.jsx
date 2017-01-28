@@ -65,6 +65,6 @@ export default class CanvasBackground extends React.Component {
 }
 
 CanvasBackground.defaultProps = {
-  primaryColor: '#ffff00',
-  secondaryColor: '#00cc00'
+  primaryColor: '#cc00cc',
+  secondaryColor: '#0000ff'
 }
