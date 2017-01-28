@@ -5,7 +5,6 @@ import Logger from '../Logger';
 import CanvasBackground from '../CanvasBackground';
 import styles from './index.css';
 
-//<DomDisplay mainAppComponent={this.props.children} />
 
 export default class Main extends React.Component {
 
@@ -17,7 +16,7 @@ export default class Main extends React.Component {
     return(
       <div className={classNames(styles.this)}>
         <Logger />
-
+        <DomDisplay mainAppComponent={this.props.children} />
         <CanvasBackground />
         <div className={classNames(styles.content)}>
           {this.props.children}

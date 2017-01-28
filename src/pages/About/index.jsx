@@ -8,7 +8,7 @@ export default class About extends React.Component {
   render() {
     return(
       <div>
-        <BackgroundDefinition primaryColor='#00ff00' secondaryColor='#ffff00' />
+        <BackgroundDefinition primaryColor='#66cc00' secondaryColor='#006600' />
         <Header />
         <h1>About</h1>
         <p>Here is some text.</p>

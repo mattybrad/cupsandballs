@@ -3,6 +3,7 @@ import pretty from 'pretty';
 import ReactDOMServer from 'react-dom/server';
 import classNames from 'classnames';
 import styles from './index.css';
+import { Provider } from 'react-redux';
 
 export default class DomDisplay extends React.Component {
   constructor(props) {
@@ -21,8 +22,9 @@ export default class DomDisplay extends React.Component {
   }
 
   makePrettyHTML(mainAppComponent) {
+    var withStore = <Provider store={window.store}>{mainAppComponent}</Provider>
     this.setState({
-      prettyHTML: pretty(ReactDOMServer.renderToStaticMarkup(mainAppComponent))
+      prettyHTML: pretty(ReactDOMServer.renderToStaticMarkup(withStore))
     })
   }
 
