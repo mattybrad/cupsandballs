@@ -3,7 +3,7 @@
   font-family: monospace;
   z-index: -1;
   position: fixed;
-  opacity: 0.4;
+  opacity: 0.2;
   animation-name: introFade;
   animation-duration: 10s;
 }
@@ -17,7 +17,7 @@
 }
 
 .logger div {
-  color: #000000;
+
 }
 
 @keyframes introFade {
@@ -25,6 +25,6 @@
     opacity: 1;
   }
   to {
-    opacity: 0.4;
+    opacity: 0.2;
   }
 }

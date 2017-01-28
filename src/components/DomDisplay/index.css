@@ -2,10 +2,20 @@
   text-align: left;
   position: fixed;
   left: 50%;
-  margin-left: -380px;
+  margin-left: -450px;
   margin-top: 0px;
   top: 0px;
   z-index: -2;
-  color: #000000;
-  opacity: 0.3;
+  opacity: 0.2;
+  animation-name: introFade;
+  animation-duration: 2s;
+}
+
+@keyframes introFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.2;
+  }
 }

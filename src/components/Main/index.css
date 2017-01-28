@@ -9,4 +9,15 @@
   height: 100vh;
   padding: 20px;
   box-sizing: border-box;
+  animation-name: introFade;
+  animation-duration: 3s;
+}
+
+@keyframes introFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
