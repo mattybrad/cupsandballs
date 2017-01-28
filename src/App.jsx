@@ -12,7 +12,13 @@ class App extends React.Component {
     // add some pointless but fun console logging for a future-retro kinda vibe
     window.addEventListener('resize', function() {
       console.log("window resize detected");
-    })
+    });
+    window.addEventListener('focus', function() {
+      console.log("window gained focus");
+    });
+    window.addEventListener('blur', function() {
+      console.log("window lost focus");
+    });
     setInterval(function() {
       console.log("random console message");
     }, 10000);
