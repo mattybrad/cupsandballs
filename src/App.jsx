@@ -33,7 +33,6 @@ class App extends React.Component {
     window.addEventListener('click', function() {
       console.log("mouse button clicked");
     });
-    console.log("website loaded");
   }
 
   render() {

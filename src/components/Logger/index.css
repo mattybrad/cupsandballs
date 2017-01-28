@@ -4,6 +4,8 @@
   z-index: -1;
   position: fixed;
   opacity: 0.4;
+  animation-name: introFade;
+  animation-duration: 10s;
 }
 
 .logger.subFullHeight {
@@ -16,4 +18,13 @@
 
 .logger div {
   color: #000000;
+}
+
+@keyframes introFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
 }

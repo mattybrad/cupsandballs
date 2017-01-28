@@ -7,7 +7,10 @@ export default class Logger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      logs: [],
+      logs: [
+        "website loading...",
+        "website loaded"
+      ],
       isFullHeight: true,
       charactersToDisplay: 0
     }
@@ -23,6 +26,11 @@ export default class Logger extends React.Component {
       })
     }.bind(this);
     setInterval(this.incrementCharactersToDisplay.bind(this), 20);
+
+    // remove preload div - timeout is a hack to stop flicker
+    setTimeout(function(){
+      document.body.removeChild(document.getElementById("preload"));
+    },0);
   }
 
   componentDidUpdate() {
