@@ -18,12 +18,12 @@
     color: white;
   }
   to {
-    color: #222222;
+    color: #000000;
   }
 }
 
 .logger div {
-  color: #222222;
+  color: #000000;
   animation-name: loggerAnimation;
   animation-duration: 2s;
 }
