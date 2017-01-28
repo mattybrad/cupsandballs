@@ -12,7 +12,7 @@ import * as Pages from './pages';
 import * as Projects from './pages/projects/allProjects.jsx';
 import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router';
 
-window.store = createStore(
+const store = createStore(
   rootReducer,
   applyMiddleware(
   	thunkMiddleware
@@ -39,9 +39,16 @@ class App extends React.Component {
 
   render() {
     return(
-      <Provider store={window.store}>
+      <Provider store={store}>
         <Router history={browserHistory}>
-          <Route path="/" component={Main}>
+          {/*
+            the syntax on the next line looks a bit weird, and here's why:
+            the Main component needs to be passed the store
+            to do this, i googled and came up with this:
+            https://www.reddit.com/r/reactjs/comments/45r58a/reactrouter_passing_props_the_2016_way/
+            it's nicer than the global variable i was using before!
+          */}
+          <Route path="/" component={(props, state, params) => <Main store={store} {...props} />}>
             <IndexRoute component={Pages.Home} />
             <Route path="about" component={Pages.About} />
             <Route path="projects">

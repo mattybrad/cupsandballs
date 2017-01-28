@@ -16,7 +16,7 @@ export default class Main extends React.Component {
     return(
       <div className={classNames(styles.this)}>
         <Logger />
-        <DomDisplay mainAppComponent={this.props.children} />
+        <DomDisplay mainAppComponent={this.props.children} store={this.props.store} />
         <CanvasBackground />
         <div className={classNames(styles.content)}>
           <Header />

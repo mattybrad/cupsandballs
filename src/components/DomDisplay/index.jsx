@@ -22,9 +22,10 @@ export default class DomDisplay extends React.Component {
   }
 
   makePrettyHTML(mainAppComponent) {
-    var withStore = <Provider store={window.store}>{mainAppComponent}</Provider>
+    // store is required here, otherwise react gets in a tizzy
+    var componentWithStore = <Provider store={this.props.store}>{mainAppComponent}</Provider>
     this.setState({
-      prettyHTML: pretty(ReactDOMServer.renderToStaticMarkup(withStore))
+      prettyHTML: pretty(ReactDOMServer.renderToStaticMarkup(componentWithStore))
     })
   }
 
