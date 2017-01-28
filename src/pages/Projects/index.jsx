@@ -13,8 +13,8 @@ export default class Projects extends React.Component {
         <h1>Projects</h1>
         <p>A list of projects!</p>
         <div>
-          <ProjectPreview project={ProjectList.TestProject} />
-          <ProjectPreview project={ProjectList.TestProject2} />
+          <ProjectPreview project={ProjectList.RobotSwans} />
+          <ProjectPreview project={ProjectList.Randomspiel} />
         </div>
       </div>
     )

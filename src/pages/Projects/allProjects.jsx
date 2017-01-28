@@ -1,2 +1,2 @@
-export {default as TestProject} from './TestProject';
-export {default as TestProject2} from './TestProject2';
+export {default as RobotSwans} from './RobotSwans';
+export {default as Randomspiel} from './Randomspiel';

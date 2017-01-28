@@ -8,10 +8,8 @@ export default class ProjectPreview extends React.Component {
   render() {
     return(
       <Link to={"projects/"+this.props.project.shortcode} className={classNames(styles.this)}>
-        <div>
-          <h3>{this.props.project.title}</h3>
-          <p>{this.props.project.description}</p>
-        </div>
+        <h1>{this.props.project.title}</h1>
+        <p>{this.props.project.description}</p>
       </Link>
     )
   }

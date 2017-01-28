@@ -1,4 +1,17 @@
 .this {
   color: inherit;
   text-decoration: none;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.this h1 {
+  font-size: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+
+.this p {
+  margin: 0px;
+  padding: 0px;
 }

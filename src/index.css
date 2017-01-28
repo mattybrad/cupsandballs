@@ -4,3 +4,6 @@ body {
   color: white;
   font-family: 'IM Fell DW Pica', serif;
 }
+ a {
+   color: inherit;
+ }
