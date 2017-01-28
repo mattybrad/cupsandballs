@@ -1,12 +1,16 @@
-.outerLog {
+.logger {
   text-align: left;
   font-family: monospace;
+  z-index: -1;
+  position: fixed;
 }
 
-.innerLog {
-  z-index: -1;
-  position: absolute;
-  bottom: 50px;
+.logger.subFullHeight {
+  top: 0px;
+}
+
+.logger.fullHeight {
+  bottom: 10px;
 }
 
 @keyframes loggerAnimation {
@@ -18,7 +22,7 @@
   }
 }
 
-.innerLog div {
+.logger div {
   color: #222222;
   animation-name: loggerAnimation;
   animation-duration: 2s;

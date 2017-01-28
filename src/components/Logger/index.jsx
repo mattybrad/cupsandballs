@@ -7,7 +7,8 @@ export default class Logger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      logs: []
+      logs: [],
+      isFullHeight: true
     }
     setInterval(function() {
       if(Math.random()>0.8) {
@@ -26,14 +27,32 @@ export default class Logger extends React.Component {
     }.bind(this);
   }
 
+  componentDidUpdate() {
+    // need to check whether logger has reached full height
+    // apparently the only reliable way to check is this hack
+    // http://stackoverflow.com/questions/26556436/react-after-render-code
+    setTimeout(function() {
+      window.requestAnimationFrame(function() {
+        if(this.refs.logger.clientHeight > window.innerHeight - 20) {
+          if(!this.state.isFullHeight) this.setState({
+            isFullHeight: true
+          })
+        } else {
+          if(this.state.isFullHeight) this.setState({
+            isFullHeight: false
+          })
+        }
+      }.bind(this))
+    }.bind(this), 0);
+  }
+
   render() {
+    var heightClass = this.state.isFullHeight?styles.fullHeight:styles.subFullHeight;
     return(
-      <div className={classNames(styles.outerLog)}>
-        <div className={classNames(styles.innerLog)}>
-          {this.state.logs.map(function(thisLog, idx) {
-            return <div key={"log"+idx.toString()}>{thisLog}</div>
-          })}
-        </div>
+      <div ref="logger" className={classNames(styles.logger, heightClass)}>
+        {this.state.logs.map(function(thisLog, idx) {
+          return <div key={"log"+idx.toString()}>{thisLog}</div>
+        })}
       </div>
     )
   }
