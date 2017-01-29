@@ -55,6 +55,8 @@ class App extends React.Component {
               <IndexRoute component={Pages.Projects} />
               <Route path={Projects.RobotSwans.shortcode} component={Projects.RobotSwans} />
               <Route path={Projects.Randomspiel.shortcode} component={Projects.Randomspiel} />
+              <Route path={Projects.WalkmanSynth.shortcode} component={Projects.WalkmanSynth} />
+              <Route path={Projects.ProjectPluto.shortcode} component={Projects.ProjectPluto} />
             </Route>
             <Route path="ambience" component={Pages.Ambience} />
             <Route path="*" component={Pages.FourZeroFour} />

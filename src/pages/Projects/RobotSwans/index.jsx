@@ -7,7 +7,7 @@ export default class Project extends React.Component {
   render() {
     return(
       <div>
-        <BackgroundDefinition primaryColor='#006600' secondaryColor='#999900' />
+        <BackgroundDefinition primaryColor='#00FF99' secondaryColor='#006699' />
         <h1>Robot Swans</h1>
         <p>Robot Swans is a band I started with two friends in 2013. We play twinkly indie pop-rock. You can <a href="http://robotswans.bandcamp.com/" target="_blank">buy our album on Bandcamp</a>.</p>
         <p>One of our early songs, written by Laura Theis, was called Pricks Of The Trade. This video does a pretty good job of illustrating our recording process.</p>
