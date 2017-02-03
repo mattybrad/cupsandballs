@@ -65,24 +65,35 @@ class CanvasBackgroundComponent extends React.Component {
         ctx.beginPath();
       }
     }
+    if(this.state.imageElement && Math.random() > 0.98) {
+      ctx.globalAlpha = 0.01;
+      ctx.drawImage(
+        this.state.imageElement,
+        -this.state.imageElement.width/2,
+        ctx.canvas.height/2 - this.state.imageElement.height/2);
+    }
     window.requestAnimationFrame(this.paint.bind(this));
   }
 
   componentDidUpdate(prevProps) {
     if(prevProps.primaryColor != this.props.primaryColor || prevProps.secondaryColor != this.props.secondaryColor) {
       this.setState({
-        changeTime: Date.now()
+        changeTime: Date.now(),
+        imageElement: null
       })
     }
     if(prevProps.image != this.props.image) {
       this.setState({
-        image: this.props.image
+        image: this.props.image,
+        imageElement: null
       })
       var img = new Image();
       img.addEventListener('load',function(){
-        alert("image loaded");
+        this.setState({
+          imageElement: img
+        })
       }.bind(this));
-      img.src = "test.jpg";
+      img.src = "/static/"+this.props.image;
     }
   }
 
