@@ -10,14 +10,17 @@
   padding: 20px;
   box-sizing: border-box;
   animation-name: introFade;
-  animation-duration: 3s;
+  animation-duration: 6s;
 }
 
 @keyframes introFade {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
+  33% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }
