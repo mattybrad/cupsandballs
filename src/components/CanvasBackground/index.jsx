@@ -21,7 +21,8 @@ class CanvasBackgroundComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ctx: null
+      ctx: null,
+      changeTime: Date.now()
     }
   }
 
@@ -45,6 +46,28 @@ class CanvasBackgroundComponent extends React.Component {
   }
 
   paint() {
+    if(this.state.ctx && this.props.primaryColor && this.props.secondaryColor) {
+      var ctx = this.state.ctx;
+      var x, y;
+      var timeDiff = Date.now() - this.state.changeTime;
+      var numCircles = 2 + Math.round(10 * Math.max(0, 1 - timeDiff / 5000));
+      for(var i=0;i<numCircles;i++){
+        x = Math.random() * ctx.canvas.width;
+        y = Math.random() * ctx.canvas.height;
+        //ctx.globalAlpha = 0.03 + 0.07 * Math.max(0, 1 - timeDiff / 5000);
+        ctx.globalAlpha = 0.04;
+        ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
+        ctx.beginPath();
+        var r = 50 + 100 * Math.random();
+        ctx.arc(x,y,r,0,2 * Math.PI);
+				ctx.fill();
+        ctx.beginPath();
+      }
+    }
+    window.requestAnimationFrame(this.paint.bind(this));
+  }
+
+  oldPaint() {
 		if(this.state.ctx && this.props.primaryColor && this.props.secondaryColor) {
 			var ctx = this.state.ctx;
       var x, y;
@@ -71,6 +94,14 @@ class CanvasBackgroundComponent extends React.Component {
 		}
 		window.requestAnimationFrame(this.paint.bind(this));
 	}
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.primaryColor != this.props.primaryColor || prevProps.secondaryColor != this.props.secondaryColor) {
+      this.setState({
+        changeTime: Date.now()
+      })
+    }
+  }
 
   render() {
     return(
