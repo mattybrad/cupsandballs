@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
   return {
 		primaryColor: state.Background.primaryColor,
-		secondaryColor: state.Background.secondaryColor
+		secondaryColor: state.Background.secondaryColor,
+    image: state.Background.image
   }
 }
 
@@ -67,38 +68,15 @@ class CanvasBackgroundComponent extends React.Component {
     window.requestAnimationFrame(this.paint.bind(this));
   }
 
-  oldPaint() {
-		if(this.state.ctx && this.props.primaryColor && this.props.secondaryColor) {
-			var ctx = this.state.ctx;
-      var x, y;
-			for(var i=0;i<3;i++){
-        x = Math.random() * (ctx.canvas.width + 200) - 100;
-        y = Math.random() * (ctx.canvas.height + 200) -100;
-        var xDiff = 0;
-        if(x<window.innerWidth/2-800/2-150||x>window.innerWidth/2+800/2+150) {
-          xDiff = 1;
-        }
-        ctx.globalAlpha = (xDiff>0)?0.06:0.04;
-				ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
-				ctx.beginPath();
-        var r = 50 + 100 * Math.random();
-        if(xDiff>0) ctx.rect(x-r,y-r,r*2,r*2);
-        else ctx.arc(x,y,50 + 100 * Math.random(),0,2 * Math.PI);
-				ctx.fill();
-        ctx.beginPath();
-        // if(xDiff>0){
-        //   ctx.fillStyle="#ffffff";
-        //   ctx.fillRect(x, 0, 1, ctx.canvas.height);
-        // }
-			}
-		}
-		window.requestAnimationFrame(this.paint.bind(this));
-	}
-
   componentDidUpdate(prevProps) {
     if(prevProps.primaryColor != this.props.primaryColor || prevProps.secondaryColor != this.props.secondaryColor) {
       this.setState({
         changeTime: Date.now()
+      })
+    }
+    if(prevProps.image != this.props.image) {
+      this.setState({
+        image: this.props.image
       })
     }
   }

@@ -7,10 +7,11 @@ export function setBackgroundActive(isActive) {
 }
 
 export const SET_COLORS = 'SET_COLORS';
-export function setColors(primaryColor, secondaryColor) {
+export function setColors(primaryColor, secondaryColor, image) {
   return {
     type: SET_COLORS,
     primaryColor,
-    secondaryColor
+    secondaryColor,
+    image
   }
 }

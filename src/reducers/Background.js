@@ -17,7 +17,8 @@ export default function Background(
     case Actions.SET_COLORS:
     return Object.assign({}, state, {
       primaryColor: action.primaryColor,
-      secondaryColor: action.secondaryColor
+      secondaryColor: action.secondaryColor,
+      image: action.image
     });
 
     default:

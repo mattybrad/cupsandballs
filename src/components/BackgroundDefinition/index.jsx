@@ -4,14 +4,14 @@ import * as Actions from '../../actions/BackgroundActions';
 
 const mapStateToProps = (state) => {
   return {
-    
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setColors: (primaryColor, secondaryColor) => {
-      dispatch(Actions.setColors(primaryColor, secondaryColor));
+    setColors: (primaryColor, secondaryColor, image) => {
+      dispatch(Actions.setColors(primaryColor, secondaryColor, image));
     }
   }
 }
@@ -25,7 +25,7 @@ class BackgroundDefinitionComponent extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.setColors(this.props.primaryColor, this.props.secondaryColor);
+		this.props.setColors(this.props.primaryColor, this.props.secondaryColor, this.props.image);
 	}
 
 	render() {
