@@ -1,9 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/entry.js',
-  output: { path: __dirname, filename: 'bundle.js' },
+  output: {
+    path: __dirname,
+    filename: 'bundle.js'
+  },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
@@ -36,6 +40,11 @@ module.exports = {
           localIdentName: '[name]__[local]___[hash:base64:5]'
         }
       }
+    ],
+    plugins: [
+      new CopyWebpackPlugin([
+          { from: 'static' }
+      ])
     ]
   }
 };

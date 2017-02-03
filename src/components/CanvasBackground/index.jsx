@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
   return {
 		primaryColor: state.Background.primaryColor,
 		secondaryColor: state.Background.secondaryColor,
-    image: state.Background.image
+    image: state.Background.image,
+    imageElement: null
   }
 }
 
@@ -55,7 +56,6 @@ class CanvasBackgroundComponent extends React.Component {
       for(var i=0;i<numCircles;i++){
         x = Math.random() * ctx.canvas.width;
         y = Math.random() * ctx.canvas.height;
-        //ctx.globalAlpha = 0.03 + 0.07 * Math.max(0, 1 - timeDiff / 5000);
         ctx.globalAlpha = 0.04;
         ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
         ctx.beginPath();
@@ -78,6 +78,11 @@ class CanvasBackgroundComponent extends React.Component {
       this.setState({
         image: this.props.image
       })
+      var img = new Image();
+      img.addEventListener('load',function(){
+        alert("image loaded");
+      }.bind(this));
+      img.src = "test.jpg";
     }
   }
 
