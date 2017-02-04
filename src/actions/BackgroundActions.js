@@ -15,3 +15,11 @@ export function setColors(primaryColor, secondaryColor, image) {
     image
   }
 }
+
+export const SET_MUSIC_DEF = 'SET_MUSIC_DEF';
+export function setMusicDef(musicDef) {
+  return {
+    type: SET_MUSIC_DEF,
+    musicDef
+  }
+}

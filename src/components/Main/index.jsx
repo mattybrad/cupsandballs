@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import DomDisplay from '../DomDisplay';
 import Logger from '../Logger';
 import CanvasBackground from '../CanvasBackground';
+import MusicBackground from '../MusicBackground';
 import styles from './index.css';
 import Header from '../Header';
 
@@ -18,6 +19,7 @@ export default class Main extends React.Component {
         <Logger />
         <DomDisplay mainAppComponent={this.props.children} store={this.props.store} />
         <CanvasBackground />
+        <MusicBackground />
         <div className={classNames(styles.content)}>
           <Header />
           {this.props.children}

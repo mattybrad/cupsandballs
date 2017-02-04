@@ -8,8 +8,7 @@ const mapStateToProps = (state) => {
   return {
 		primaryColor: state.Background.primaryColor,
 		secondaryColor: state.Background.secondaryColor,
-    image: state.Background.image,
-    imageElement: null
+    image: state.Background.image
   }
 }
 
@@ -24,7 +23,8 @@ class CanvasBackgroundComponent extends React.Component {
     super(props);
     this.state = {
       ctx: null,
-      changeTime: Date.now()
+      changeTime: Date.now(),
+      imageElement: null
     }
   }
 

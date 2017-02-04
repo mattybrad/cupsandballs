@@ -21,6 +21,11 @@ export default function Background(
       image: action.image
     });
 
+    case Actions.SET_MUSIC_DEF:
+    return Object.assign({}, state, {
+      musicDef: action.musicDef
+    });
+
     default:
     return state
   }
