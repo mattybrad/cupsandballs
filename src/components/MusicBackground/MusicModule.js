@@ -10,19 +10,19 @@ export default class MusicModule {
     this.def = def;
     this.step = 0;
     this.nextStepTime = actx.currentTime;
-    if(this.def.channels) {
-      this.channels = this.def.channels.map(function(channelDef) {
-        return new MusicModuleChannel(this.actx, channelDef);
-      }.bind(this));
-    } else {
-      this.channels = [];
-    }
     this.dying = false;
     this.alive = true;
     this.lastTickTime = this.actx.currentTime;
     this.mainNode = this.actx.createGain();
     this.mainNode.gain.value = 0;
     this.mainNode.connect(this.actx.destination);
+    if(this.def.channels) {
+      this.channels = this.def.channels.map(function(channelDef) {
+        return new MusicModuleChannel(this.actx, this.mainNode, channelDef);
+      }.bind(this));
+    } else {
+      this.channels = [];
+    }
     setTimeout(this.tick.bind(this), TICK_INTERVAL);
   }
 
