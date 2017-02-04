@@ -8,7 +8,7 @@ export default class MusicModule {
     this.alive = true;
     this.lastTickTime = this.actx.currentTime;
     this.mainNode = this.actx.createGain();
-    this.mainNode.gain.value = MODULE_VOLUME;
+    this.mainNode.gain.value = 0;
     this.mainNode.connect(this.actx.destination);
     setTimeout(this.tick.bind(this), 100);
   }
@@ -24,6 +24,8 @@ export default class MusicModule {
     }
     if(this.dying) {
       this.mainNode.gain.value = Math.max(0, this.mainNode.gain.value - MODULE_VOLUME * timeSinceTick / 10);
+    } else if(this.mainNode.gain.value < MODULE_VOLUME) {
+      this.mainNode.gain.value = Math.min(1, this.mainNode.gain.value + MODULE_VOLUME * timeSinceTick / 10);
     }
     this.lastTickTime = this.actx.currentTime;
     if(this.dying && this.mainNode.gain.value == 0) this.alive = false;
