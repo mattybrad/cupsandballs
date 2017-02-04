@@ -33,7 +33,7 @@ export default class MusicModule {
         this.channels[i].scheduleNotes(this.step, this.nextStepTime);
       }
       this.step ++;
-      this.nextStepTime += 60 / 120;
+      this.nextStepTime += 60 / 160;
     }
     if(this.dying) {
       this.mainNode.gain.value = Math.max(0, this.mainNode.gain.value - MODULE_VOLUME * timeSinceTick / 10);
