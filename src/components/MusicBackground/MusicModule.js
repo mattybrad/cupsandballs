@@ -2,7 +2,8 @@ export default class MusicModule {
   constructor(actx, def) {
     this.actx = actx;
     this.def = def;
-    setInterval(this.tick.bind(this), 1000);
+    this.alive = true;
+    setTimeout(this.tick.bind(this), 1000);
   }
 
   tick() {
@@ -13,9 +14,7 @@ export default class MusicModule {
       osc.start();
       osc.stop(this.actx.currentTime + 0.1);
     }
+    if(this.alive) setTimeout(this.tick.bind(this), 1000);
   }
 
-  kill() {
-
-  }
 }

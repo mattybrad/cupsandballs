@@ -41,6 +41,9 @@ class MusicBackgroundComponent extends React.Component {
   initMusic() {
     if(this.currentModule) this.obsoleteModules.push(this.currentModule);
     this.currentModule = new MusicModule(this.actx, this.props.musicDef);
+    for(var i = 0; i < this.obsoleteModules.length; i ++) {
+      this.obsoleteModules[i].alive = false;
+    }
   }
 
   render() {
