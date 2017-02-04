@@ -20,6 +20,8 @@ class MusicBackgroundComponent extends React.Component {
   constructor(props) {
     super(props);
     this.actx = null;
+    this.currentModule = null;
+    this.obsoleteModules = [];
   }
 
   componentDidMount() {
@@ -37,7 +39,8 @@ class MusicBackgroundComponent extends React.Component {
   }
 
   initMusic() {
-    var x = new MusicModule();
+    if(this.currentModule) this.obsoleteModules.push(this.currentModule);
+    this.currentModule = new MusicModule(this.actx, this.props.musicDef);
   }
 
   render() {
