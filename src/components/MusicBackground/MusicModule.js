@@ -1,26 +1,33 @@
+import MusicModuleChannel from './MusicModuleChannel';
+
 const MODULE_VOLUME = 0.1;
+const LOOK_AHEAD_TIME = 0.1; // seconds
+const TICK_INTERVAL = 25; // milliseconds
 
 export default class MusicModule {
   constructor(actx, def) {
     this.actx = actx;
     this.def = def;
+    if(this.def.channels) {
+      this.channels = this.def.channels.map(function(channelDef) {
+        return new MusicModuleChannel(this.actx, channelDef);
+      }.bind(this));
+    } else {
+      this.channels = [];
+    }
     this.dying = false;
     this.alive = true;
     this.lastTickTime = this.actx.currentTime;
     this.mainNode = this.actx.createGain();
     this.mainNode.gain.value = 0;
     this.mainNode.connect(this.actx.destination);
-    setTimeout(this.tick.bind(this), 100);
+    setTimeout(this.tick.bind(this), TICK_INTERVAL);
   }
 
   tick() {
     var timeSinceTick = this.actx.currentTime - this.lastTickTime;
-    if(this.def.freq) {
-      var osc = this.actx.createOscillator();
-      osc.frequency.value = this.def.freq;
-      osc.connect(this.mainNode);
-      osc.start();
-      osc.stop(this.actx.currentTime + 0.03);
+    for(var i = 0; i < this.channels.length; i ++) {
+      this.channels[i].tick();
     }
     if(this.dying) {
       this.mainNode.gain.value = Math.max(0, this.mainNode.gain.value - MODULE_VOLUME * timeSinceTick / 10);
@@ -29,7 +36,7 @@ export default class MusicModule {
     }
     this.lastTickTime = this.actx.currentTime;
     if(this.dying && this.mainNode.gain.value == 0) this.alive = false;
-    if(this.alive) setTimeout(this.tick.bind(this), 100);
+    if(this.alive) setTimeout(this.tick.bind(this), TICK_INTERVAL);
   }
 
 }
