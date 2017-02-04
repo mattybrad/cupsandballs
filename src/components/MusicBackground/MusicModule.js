@@ -8,6 +8,8 @@ export default class MusicModule {
   constructor(actx, def) {
     this.actx = actx;
     this.def = def;
+    this.step = 0;
+    this.nextStepTime = actx.currentTime;
     if(this.def.channels) {
       this.channels = this.def.channels.map(function(channelDef) {
         return new MusicModuleChannel(this.actx, channelDef);
@@ -26,8 +28,12 @@ export default class MusicModule {
 
   tick() {
     var timeSinceTick = this.actx.currentTime - this.lastTickTime;
-    for(var i = 0; i < this.channels.length; i ++) {
-      this.channels[i].tick();
+    while(this.nextStepTime < this.actx.currentTime + LOOK_AHEAD_TIME) {
+      for(var i = 0; i < this.channels.length; i ++) {
+        this.channels[i].scheduleNotes(this.step, this.nextStepTime);
+      }
+      this.step ++;
+      this.nextStepTime += 60 / 120;
     }
     if(this.dying) {
       this.mainNode.gain.value = Math.max(0, this.mainNode.gain.value - MODULE_VOLUME * timeSinceTick / 10);
