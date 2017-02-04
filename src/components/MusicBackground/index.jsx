@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import * as Actions from '../../actions/BackgroundActions';
+import MusicModule from './MusicModule';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
@@ -19,7 +20,6 @@ class MusicBackgroundComponent extends React.Component {
   constructor(props) {
     super(props);
     this.actx = null;
-    this.nodes = [];
   }
 
   componentDidMount() {
@@ -37,14 +37,7 @@ class MusicBackgroundComponent extends React.Component {
   }
 
   initMusic() {
-    var d = this.props.musicDef;
-    if(d.freq) {
-      var osc = this.actx.createOscillator();
-      osc.type = "square";
-      osc.frequency.value = d.freq;
-      osc.start();
-      osc.connect(this.actx.destination);
-    }
+    var x = new MusicModule();
   }
 
   render() {
