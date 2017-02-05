@@ -1,5 +1,5 @@
 export default {
-  tempo: 120,
+  tempo: 90,
   channels: [
     {
       type: "osc",

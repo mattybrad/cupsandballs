@@ -49,6 +49,7 @@ class MusicBackgroundComponent extends React.Component {
     for(var i = 0; i < this.obsoleteModules.length; i ++) {
       this.obsoleteModules[i].dying = true;
     }
+    if(this.props.musicDef.tempo) this.tempo = this.props.musicDef.tempo;
   }
 
   tick() {
