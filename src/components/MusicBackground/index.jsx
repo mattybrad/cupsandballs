@@ -4,6 +4,9 @@ import * as Actions from '../../actions/BackgroundActions';
 import MusicModule from './MusicModule';
 import { connect } from 'react-redux';
 
+const LOOK_AHEAD_TIME = 0.1; // seconds
+const TICK_INTERVAL = 25; // milliseconds
+
 const mapStateToProps = (state) => {
   return {
 		musicDef: state.Background.musicDef
@@ -22,28 +25,47 @@ class MusicBackgroundComponent extends React.Component {
     this.actx = null;
     this.currentModule = null;
     this.obsoleteModules = [];
+    this.step = 0;
+    this.nextStepTime = 0;
   }
 
   componentDidMount() {
-		this.initAudioContext();
-	}
-
-  initAudioContext() {
     this.actx = new (AudioContext||webkitAudioContext)();
+    this.nextStepTime = this.actx.currentTime;
+    this.tick();
 	}
 
   componentDidUpdate(prevProps) {
     if(prevProps.musicDef != this.props.musicDef) {
-      this.initMusic();
+      this.initNewModule();
     }
   }
 
-  initMusic() {
+  initNewModule() {
     if(this.currentModule) this.obsoleteModules.push(this.currentModule);
     this.currentModule = new MusicModule(this.actx, this.props.musicDef);
     for(var i = 0; i < this.obsoleteModules.length; i ++) {
       this.obsoleteModules[i].dying = true;
     }
+  }
+
+  tick() {
+    // probably remove module tick at some point, but for now...
+    if(this.currentModule) this.currentModule.tick();
+    for(var i = 0; i < this.obsoleteModules.length; i ++) {
+      this.obsoleteModules[i].tick();
+    }
+    // end of bit to be removed later
+
+    while(this.nextStepTime < this.actx.currentTime + LOOK_AHEAD_TIME) {
+      if(this.currentModule) this.currentModule.scheduleNotes(this.step, this.nextStepTime);
+      for(var i = 0; i < this.obsoleteModules.length; i ++) {
+        this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime);
+      }
+      this.step ++;
+      this.nextStepTime += 60 / 120; // 120 is the tempo
+    }
+    setTimeout(this.tick.bind(this), TICK_INTERVAL);
   }
 
   render() {
