@@ -4,7 +4,7 @@ import * as Actions from '../../actions/BackgroundActions';
 import MusicModule from './MusicModule';
 import { connect } from 'react-redux';
 
-const LOOK_AHEAD_TIME = 0.1; // seconds
+const LOOK_AHEAD_TIME = 0.2; // seconds
 const TICK_INTERVAL = 25; // milliseconds
 const STEPS_PER_BEAT = 4;
 
@@ -28,12 +28,15 @@ class MusicBackgroundComponent extends React.Component {
     this.obsoleteModules = [];
     this.step = 0;
     this.nextStepTime = 0;
-    this.tempo = 120;
+    this.lastTickTime = 0;
+    this.targetTempo = this.tempo = null;
+    this.firstModuleLoaded = false;
   }
 
   componentDidMount() {
     this.actx = new (AudioContext||webkitAudioContext)();
     this.nextStepTime = this.actx.currentTime;
+    this.lastTickTime = this.actx.currentTime;
     this.tick();
 	}
 
@@ -49,27 +52,49 @@ class MusicBackgroundComponent extends React.Component {
     for(var i = 0; i < this.obsoleteModules.length; i ++) {
       this.obsoleteModules[i].dying = true;
     }
-    if(this.props.musicDef.tempo) this.tempo = this.props.musicDef.tempo;
+    if(this.props.musicDef.tempo) this.targetTempo = this.props.musicDef.tempo;
+    if(!this.firstModuleLoaded) {
+      this.firstModuleLoaded = true;
+      if(this.targetTempo == null) this.targetTempo = 120;
+      this.tempo = this.targetTempo;
+      console.log(this.tempo);
+    }
   }
 
   tick() {
-    // probably remove module tick at some point, but for now...
-    if(this.currentModule) this.currentModule.tick();
-    for(var i = 0; i < this.obsoleteModules.length; i ++) {
-      this.obsoleteModules[i].tick();
-    }
-    // end of bit to be removed later
+    if(this.firstModuleLoaded) {
 
-    while(this.nextStepTime < this.actx.currentTime + LOOK_AHEAD_TIME) {
-      if(this.currentModule) this.currentModule.scheduleNotes(this.step, this.nextStepTime);
+      // probably remove module tick at some point, but for now...
+      if(this.currentModule) this.currentModule.tick();
       for(var i = 0; i < this.obsoleteModules.length; i ++) {
-        this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime);
+        this.obsoleteModules[i].tick();
       }
-      this.step ++;
-      this.nextStepTime += 60 / this.tempo / STEPS_PER_BEAT;
+      // end of bit to be removed later
+
+      this.rampTempo();
+
+      while(this.nextStepTime < this.actx.currentTime + LOOK_AHEAD_TIME) {
+        if(this.currentModule) this.currentModule.scheduleNotes(this.step, this.nextStepTime);
+        for(var i = 0; i < this.obsoleteModules.length; i ++) {
+          this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime);
+        }
+        this.step ++;
+        this.nextStepTime += 60 / this.tempo / STEPS_PER_BEAT;
+      }
+      this.removeDeadModules();
+      this.lastTickTime = this.actx.currentTime;
+      
     }
-    this.removeDeadModules();
     setTimeout(this.tick.bind(this), TICK_INTERVAL);
+  }
+
+  rampTempo() {
+    var timeSinceTick = this.actx.currentTime - this.lastTickTime;
+    if(this.tempo < this.targetTempo) {
+      this.tempo = Math.min(this.targetTempo, this.tempo + 5 * timeSinceTick);
+    } else if(this.tempo > this.targetTempo) {
+      this.tempo = Math.max(this.targetTempo, this.tempo - 5 * timeSinceTick);
+    }
   }
 
   removeDeadModules() {
