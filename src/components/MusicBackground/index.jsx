@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 const LOOK_AHEAD_TIME = 0.1; // seconds
 const TICK_INTERVAL = 25; // milliseconds
+const STEPS_PER_BEAT = 4;
 
 const mapStateToProps = (state) => {
   return {
@@ -27,6 +28,7 @@ class MusicBackgroundComponent extends React.Component {
     this.obsoleteModules = [];
     this.step = 0;
     this.nextStepTime = 0;
+    this.tempo = 120;
   }
 
   componentDidMount() {
@@ -63,7 +65,7 @@ class MusicBackgroundComponent extends React.Component {
         this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime);
       }
       this.step ++;
-      this.nextStepTime += 60 / 120; // 120 is the tempo
+      this.nextStepTime += 60 / this.tempo / STEPS_PER_BEAT;
     }
     setTimeout(this.tick.bind(this), TICK_INTERVAL);
   }

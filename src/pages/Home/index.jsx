@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../components/BackgroundDefinition';
 import MusicDefinition from '../../components/MusicDefinition';
-import musicDef from './musicDef'
+import musicDef from './musicDef';
 
 export default class Home extends React.Component {
 
