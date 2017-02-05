@@ -67,7 +67,17 @@ class MusicBackgroundComponent extends React.Component {
       this.step ++;
       this.nextStepTime += 60 / this.tempo / STEPS_PER_BEAT;
     }
+    this.removeDeadModules();
     setTimeout(this.tick.bind(this), TICK_INTERVAL);
+  }
+
+  removeDeadModules() {
+    for(var i = 0; i < this.obsoleteModules.length; i ++) {
+      if(!this.obsoleteModules[i].alive) {
+        this.obsoleteModules.splice(i, 1);
+        i --;
+      }
+    }
   }
 
   render() {
