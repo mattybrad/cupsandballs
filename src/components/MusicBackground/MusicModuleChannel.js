@@ -62,15 +62,26 @@ export default class MusicModuleChannel {
       for(var i = 0; i < this.notes.length; i ++) {
         n = this.notes[i];
         if(n.step == thisStep) {
-          var osc = this.actx.createOscillator();
-          osc.type = "square";
-          osc.frequency.value = 440 * Math.pow(2, (n.note - 49) / 12);
-          osc.connect(this.moduleNode);
-          osc.start(nextStepTime);
-          osc.stop(nextStepTime + 0.1);
+          this.scheduleOscillatorWithAmplifier(nextStepTime, n.note);
         }
       }
     }
   }
 
+  scheduleOscillatorWithAmplifier(startTime, noteNumber) {
+    var osc = this.actx.createOscillator();
+    var gainNode = this.actx.createGain();
+    osc.type = "square";
+    osc.frequency.value = 440 * Math.pow(2, (noteNumber - 49) / 12);
+    osc.connect(gainNode);
+    gainNode.connect(this.moduleNode);
+    gainNode.gain.value = 0;
+    gainNode.gain.setValueAtTime(0, startTime);
+    gainNode.gain.linearRampToValueAtTime(1, startTime + 0.2);
+    gainNode.gain.linearRampToValueAtTime(0.3, startTime + 0.2 + 0.1);
+    gainNode.gain.setValueAtTime(0.3, startTime + 1);
+    gainNode.gain.linearRampToValueAtTime(0, startTime + 1.5);
+    osc.start(startTime);
+    osc.stop(startTime + 2);
+  }
 }
