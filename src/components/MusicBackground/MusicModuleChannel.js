@@ -14,6 +14,7 @@ export default class MusicModuleChannel {
   constructor(actx, moduleNode, def) {
     this.actx = actx;
     this.moduleNode = moduleNode;
+    this.waveform = def.waveform || "sine";
     this.attack = def.attack || 0.0;
     this.decay = def.decay || 0.5;
     this.sustain = def.sustain || 0.5;
@@ -56,12 +57,7 @@ export default class MusicModuleChannel {
       } else {
         arpNoteNum = getNoteNumFromString(this.arpeggiator.notes[thisStep]);
       }
-      var osc = this.actx.createOscillator();
-      osc.type = "square";
-      osc.frequency.value = 440 * Math.pow(2, (arpNoteNum - 49) / 12);
-      osc.connect(this.moduleNode);
-      osc.start(nextStepTime);
-      osc.stop(nextStepTime + 0.1);
+      this.scheduleOscillatorWithAmplifier(nextStepTime, arpNoteNum, currentStepLength);
     } else {
       var n;
       for(var i = 0; i < this.notes.length; i ++) {
@@ -76,7 +72,7 @@ export default class MusicModuleChannel {
   scheduleOscillatorWithAmplifier(startTime, noteNumber, duration) {
     var osc = this.actx.createOscillator();
     var gainNode = this.actx.createGain();
-    osc.type = "square";
+    osc.type = this.waveform;
     osc.frequency.value = 440 * Math.pow(2, (noteNumber - 49) / 12);
     osc.connect(gainNode);
     gainNode.connect(this.moduleNode);

@@ -21,7 +21,7 @@ export default {
     },
     {
       type: "osc",
-      waveform: "square",
+      waveform: "sine",
       attack: 0.5,
       decay: 0.2,
       sustain: 0.7,
