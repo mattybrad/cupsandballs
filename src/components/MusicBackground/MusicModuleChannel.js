@@ -16,9 +16,17 @@ export default class MusicModuleChannel {
     this.moduleNode = moduleNode;
     if(def.arpeggiator) {
       this.arpeggiator = {};
-      this.arpeggiator.notes = def.arpeggiator.notes;
       this.arpeggiator.pattern = def.arpeggiator.pattern || "random";
+      this.arpeggiator.octaves = def.arpeggiator.octaves || 1;
+      this.arpeggiator.notes = def.arpeggiator.notes;
+      if(this.arpeggiator.pattern == "down" || this.arpeggiator.pattern == "down-up") {
+        this.arpeggiator.notes.reverse();
+      }
+      if(this.arpeggiator.pattern == "up-down" || this.arpeggiator.pattern == "down-up") {
+        this.arpeggiator.notes = this.arpeggiator.notes.concat(this.arpeggiator.notes.slice(1,-1).reverse());
+      }
       this.steps = this.arpeggiator.notes.length;
+      this.arpeggiator.lastNoteNum = null;
     } else {
       this.steps = def.steps || 16;
       this.notes = (def.notes || []).map(function(n){
@@ -34,12 +42,14 @@ export default class MusicModuleChannel {
     var thisStep = moduleStep % this.steps;
     if(this.arpeggiator) {
       var arpNoteNum;
-      if(this.arpeggiator.pattern == "up") {
+      if(this.arpeggiator.pattern == "random") {
+        arpNoteNum = this.arpeggiator.lastNoteNum;
+        while(arpNoteNum == this.arpeggiator.lastNoteNum && this.arpeggiator.notes.length > 1) {
+          arpNoteNum = getNoteNumFromString(this.arpeggiator.notes[Math.floor(Math.random()*this.arpeggiator.notes.length)]) + 12 * Math.floor(Math.random()*this.arpeggiator.octaves);
+        }
+        this.arpeggiator.lastNoteNum = arpNoteNum;
+      } else {
         arpNoteNum = getNoteNumFromString(this.arpeggiator.notes[thisStep]);
-      } else if(this.arpeggiator.pattern == "down") {
-        arpNoteNum = getNoteNumFromString(this.arpeggiator.notes[thisStep]); // wrong but gonna sort this somewhere else
-      } else if(this.arpeggiator.pattern == "random") {
-        arpNoteNum = getNoteNumFromString(this.arpeggiator.notes[Math.floor(Math.random()*this.arpeggiator.notes.length)]);
       }
       var osc = this.actx.createOscillator();
       osc.type = "square";

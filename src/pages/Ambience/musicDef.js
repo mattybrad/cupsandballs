@@ -1,10 +1,27 @@
 export default {
-  tempo: 90,
+  tempo: 70,
   channels: [
     {
       type: "osc",
       arpeggiator: {
-        notes:["C2","E2","G2","C3"],
+        octaves: 4,
+        notes:["C2","Eb2","G2"],
+        pattern: "random"
+      }
+    },
+    {
+      type: "osc",
+      arpeggiator: {
+        octaves: 4,
+        notes:["C2","Eb2","G2"],
+        pattern: "random"
+      }
+    },
+    {
+      type: "osc",
+      arpeggiator: {
+        octaves: 4,
+        notes:["F2","G2","B2"],
         pattern: "random"
       }
     }
