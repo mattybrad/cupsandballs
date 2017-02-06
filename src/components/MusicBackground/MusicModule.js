@@ -21,9 +21,9 @@ export default class MusicModule {
     }
   }
 
-  scheduleNotes(step, nextStepTime) {
+  scheduleNotes(step, nextStepTime, currentStepLength) {
     for(var i = 0; i < this.channels.length; i ++) {
-      this.channels[i].scheduleNotes(step, nextStepTime);
+      this.channels[i].scheduleNotes(step, nextStepTime, currentStepLength);
     }
   }
 

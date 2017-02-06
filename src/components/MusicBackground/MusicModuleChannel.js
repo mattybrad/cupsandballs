@@ -14,6 +14,10 @@ export default class MusicModuleChannel {
   constructor(actx, moduleNode, def) {
     this.actx = actx;
     this.moduleNode = moduleNode;
+    this.attack = def.attack || 0.0;
+    this.decay = def.decay || 0.5;
+    this.sustain = def.sustain || 0.5;
+    this.release = def.release || 1.0;
     if(def.arpeggiator) {
       this.arpeggiator = {};
       this.arpeggiator.pattern = def.arpeggiator.pattern || "random";
@@ -32,13 +36,14 @@ export default class MusicModuleChannel {
       this.notes = (def.notes || []).map(function(n){
         return {
           step: n[1],
-          note: getNoteNumFromString(n[0])
+          note: getNoteNumFromString(n[0]),
+          duration: n[2]
         }
       })
     }
   }
 
-  scheduleNotes(moduleStep, nextStepTime) {
+  scheduleNotes(moduleStep, nextStepTime, currentStepLength) {
     var thisStep = moduleStep % this.steps;
     if(this.arpeggiator) {
       var arpNoteNum;
@@ -62,13 +67,13 @@ export default class MusicModuleChannel {
       for(var i = 0; i < this.notes.length; i ++) {
         n = this.notes[i];
         if(n.step == thisStep) {
-          this.scheduleOscillatorWithAmplifier(nextStepTime, n.note);
+          this.scheduleOscillatorWithAmplifier(nextStepTime, n.note, n.duration * currentStepLength);
         }
       }
     }
   }
 
-  scheduleOscillatorWithAmplifier(startTime, noteNumber) {
+  scheduleOscillatorWithAmplifier(startTime, noteNumber, duration) {
     var osc = this.actx.createOscillator();
     var gainNode = this.actx.createGain();
     osc.type = "square";
@@ -77,11 +82,11 @@ export default class MusicModuleChannel {
     gainNode.connect(this.moduleNode);
     gainNode.gain.value = 0;
     gainNode.gain.setValueAtTime(0, startTime);
-    gainNode.gain.linearRampToValueAtTime(1, startTime + 0.2);
-    gainNode.gain.linearRampToValueAtTime(0.3, startTime + 0.2 + 0.1);
-    gainNode.gain.setValueAtTime(0.3, startTime + 1);
-    gainNode.gain.linearRampToValueAtTime(0, startTime + 1.5);
+    gainNode.gain.linearRampToValueAtTime(1, startTime + this.attack);
+    gainNode.gain.linearRampToValueAtTime(this.sustain, startTime + this.attack + this.decay);
+    gainNode.gain.setValueAtTime(this.sustain, startTime + duration);
+    gainNode.gain.linearRampToValueAtTime(0, startTime + duration + this.release);
     osc.start(startTime);
-    osc.stop(startTime + 2);
+    osc.stop(startTime + duration + this.release);
   }
 }

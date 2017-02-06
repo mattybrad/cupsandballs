@@ -76,14 +76,15 @@ class MusicBackgroundComponent extends React.Component {
       // end of bit to be removed later
 
       this.rampTempo();
+      var currentStepLength = 60 / this.tempo / STEPS_PER_BEAT;
 
       while(this.nextStepTime < this.actx.currentTime + LOOK_AHEAD_TIME) {
-        if(this.currentModule) this.currentModule.scheduleNotes(this.step, this.nextStepTime);
+        if(this.currentModule) this.currentModule.scheduleNotes(this.step, this.nextStepTime, currentStepLength);
         for(var i = 0; i < this.obsoleteModules.length; i ++) {
-          this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime);
+          this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime, currentStepLength);
         }
         this.step ++;
-        this.nextStepTime += 60 / this.tempo / STEPS_PER_BEAT;
+        this.nextStepTime += currentStepLength;
       }
       this.removeDeadModules();
       this.lastTickTime = this.actx.currentTime;
