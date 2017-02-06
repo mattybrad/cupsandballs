@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 const LOOK_AHEAD_TIME = 0.2; // seconds
 const TICK_INTERVAL = 25; // milliseconds
 const STEPS_PER_BEAT = 4;
+const DEFAULT_TEMPO = 120; // bpm
+const TEMPO_RAMP_RATE = 5; // bpm per second
 
 const mapStateToProps = (state) => {
   return {
@@ -53,15 +55,17 @@ class MusicBackgroundComponent extends React.Component {
       this.obsoleteModules[i].dying = true;
     }
     if(this.props.musicDef.tempo) this.targetTempo = this.props.musicDef.tempo;
+
+    // if this is the first module to play, go straight to its tempo without ramping
     if(!this.firstModuleLoaded) {
       this.firstModuleLoaded = true;
-      if(this.targetTempo == null) this.targetTempo = 120;
+      if(this.targetTempo == null) this.targetTempo = DEFAULT_TEMPO; // in case module has no tempo
       this.tempo = this.targetTempo;
-      console.log(this.tempo);
     }
   }
 
   tick() {
+    // don't do stuff until a module has been laoded
     if(this.firstModuleLoaded) {
 
       // probably remove module tick at some point, but for now...
@@ -83,7 +87,7 @@ class MusicBackgroundComponent extends React.Component {
       }
       this.removeDeadModules();
       this.lastTickTime = this.actx.currentTime;
-      
+
     }
     setTimeout(this.tick.bind(this), TICK_INTERVAL);
   }
@@ -91,9 +95,9 @@ class MusicBackgroundComponent extends React.Component {
   rampTempo() {
     var timeSinceTick = this.actx.currentTime - this.lastTickTime;
     if(this.tempo < this.targetTempo) {
-      this.tempo = Math.min(this.targetTempo, this.tempo + 5 * timeSinceTick);
+      this.tempo = Math.min(this.targetTempo, this.tempo + TEMPO_RAMP_RATE * timeSinceTick);
     } else if(this.tempo > this.targetTempo) {
-      this.tempo = Math.max(this.targetTempo, this.tempo - 5 * timeSinceTick);
+      this.tempo = Math.max(this.targetTempo, this.tempo - TEMPO_RAMP_RATE * timeSinceTick);
     }
   }
 
