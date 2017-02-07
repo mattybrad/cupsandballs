@@ -10,12 +10,18 @@ export default class AudioPlayer extends React.Component {
     this.state = {
       playing: false
     }
+    this.actx = new (AudioContext||webkitAudioContext)(); // only temporary, don't want to create loads of these
   }
 
   onPlayClick() {
     if(!this.state.playing) {
       this.audio = new Audio(this.props.src);
       this.audio.play();
+      this.mediaNode = this.actx.createMediaElementSource(this.audio);
+      this.analyser = this.actx.createAnalyser();
+      this.analyser.fftSize = 32;
+      this.mediaNode.connect(this.analyser);
+      this.analyser.connect(this.actx.destination);
     } else {
       this.audio.pause();
     }
