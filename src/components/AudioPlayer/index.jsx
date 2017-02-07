@@ -10,7 +10,7 @@ export default class AudioPlayer extends React.Component {
     this.state = {
       playing: false
     }
-    this.actx = new (AudioContext||webkitAudioContext)(); // only temporary, don't want to create loads of these
+    this.actx = window.actx;
   }
 
   onPlayClick() {

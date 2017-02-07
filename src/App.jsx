@@ -21,6 +21,11 @@ const store = createStore(
 
 class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    window.actx = new (AudioContext||webkitAudioContext)();
+  }
+
   componentDidMount() {
     // add some pointless but fun console logging for a future-retro kinda vibe
     window.addEventListener('resize', function() {
@@ -35,6 +40,7 @@ class App extends React.Component {
     window.addEventListener('click', function() {
       console.log("mouse button clicked");
     });
+
   }
 
   render() {

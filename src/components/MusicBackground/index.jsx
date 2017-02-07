@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 class MusicBackgroundComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.actx = null;
+    this.actx = window.actx;
     this.currentModule = null;
     this.obsoleteModules = [];
     this.step = 0;
@@ -36,7 +36,6 @@ class MusicBackgroundComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.actx = new (AudioContext||webkitAudioContext)();
     this.nextStepTime = this.actx.currentTime;
     this.lastTickTime = this.actx.currentTime;
     this.tick();
