@@ -13,6 +13,12 @@ export default class AudioPlayer extends React.Component {
   }
 
   onPlayClick() {
+    if(!this.state.playing) {
+      this.audio = new Audio(this.props.src);
+      this.audio.play();
+    } else {
+      this.audio.pause();
+    }
     this.setState({
       playing: !this.state.playing
     })
