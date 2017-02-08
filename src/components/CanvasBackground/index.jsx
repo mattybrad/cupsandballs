@@ -62,7 +62,7 @@ class CanvasBackgroundComponent extends React.Component {
         r = 50 + 100 * Math.random();
         if(this.props.audioPlayer) {
           ctx.globalAlpha = 0.1;
-          ctx.fillStyle = "#000000";
+          ctx.fillStyle = Math.random()>0.5?"#222222":"#000000";
         } else {
           ctx.globalAlpha = 0.04;
           ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
@@ -88,15 +88,10 @@ class CanvasBackgroundComponent extends React.Component {
       ctx.globalAlpha = 0.2;
       ctx.beginPath();
       for(var i = 0; i < aDataLen; i ++) {
-        ctx.lineTo(i*barWidth, ctx.canvas.height * (1 - 0.5 * aData[i]));
-        // if(Math.random() > 0.8) {
-        //   ctx.beginPath();
-        //   ctx.arc((i+Math.random()) * barWidth, ctx.canvas.height - 2 * Math.random() * aData[i], 5 + 0.2 * aData[i], 0,2 * Math.PI);
-        //   ctx.fill();
-        // }
+        ctx.lineTo(i>0?(i+0.5-Math.random())*barWidth:0, ctx.canvas.height * (1 - 0.5 * aData[i]));
       }
       ctx.strokeStyle = this.props.primaryColor;
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 1;
       ctx.stroke();
     }
     window.requestAnimationFrame(this.paint.bind(this));
