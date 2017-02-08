@@ -54,12 +54,8 @@ class MusicBackgroundComponent extends React.Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
     window.addEventListener("blur", this.onBlur.bind(this));
     window.addEventListener("focus", this.onFocus.bind(this));
-    this.actx = new (AudioContext||webkitAudioContext)();
-=======
->>>>>>> a4ffb36dfbfa790c395cf71576e28a46ff7c30c5
     this.nextStepTime = this.actx.currentTime;
     this.lastTickTime = this.actx.currentTime;
     this.tick();
