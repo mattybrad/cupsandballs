@@ -78,6 +78,14 @@ class CanvasBackgroundComponent extends React.Component {
         -this.state.imageElement.width/2,
         ctx.canvas.height/2 - this.state.imageElement.height/2);
     }
+    if(this.props.audioPlayer) {
+      var aData = this.props.audioPlayer.getAnalyserData();
+      var aDataLen = aData.length;
+      ctx.fillStyle = "#FFFFFF";
+      for(var i = 0; i < aDataLen; i ++) {
+        if(Math.random() > 0.9) ctx.fillRect(i * 10, aData[i], 10, 10);
+      }
+    }
     window.requestAnimationFrame(this.paint.bind(this));
   }
 
