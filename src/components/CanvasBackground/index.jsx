@@ -58,17 +58,19 @@ class CanvasBackgroundComponent extends React.Component {
       for(var i=0;i<numCircles;i++){
         x = Math.random() * ctx.canvas.width;
         y = Math.random() * ctx.canvas.height;
-        ctx.globalAlpha = 0.04;
+        var r;
+        r = 50 + 100 * Math.random();
         if(this.props.audioPlayer) {
+          ctx.globalAlpha = 0.1;
           ctx.fillStyle = "#000000";
         } else {
+          ctx.globalAlpha = 0.04;
           ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
         }
         ctx.beginPath();
-        var r = 50 + 100 * Math.random();
         ctx.arc(x,y,r,0,2 * Math.PI);
 				ctx.fill();
-        ctx.beginPath();
+        ctx.beginPath(); // um... what's this doing?
       }
     }
     if(this.state.imageElement && Math.random() > 0.98) {
@@ -81,10 +83,21 @@ class CanvasBackgroundComponent extends React.Component {
     if(this.props.audioPlayer) {
       var aData = this.props.audioPlayer.getAnalyserData();
       var aDataLen = aData.length;
-      ctx.fillStyle = "#FFFFFF";
+      var barWidth = ctx.canvas.width / (aDataLen - 1);
+      ctx.fillStyle = ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
+      ctx.globalAlpha = 0.2;
+      ctx.beginPath();
       for(var i = 0; i < aDataLen; i ++) {
-        if(Math.random() > 0.9) ctx.fillRect(i * 10, aData[i], 10, 10);
+        ctx.lineTo(i*barWidth, ctx.canvas.height * (1 - 0.5 * aData[i]));
+        // if(Math.random() > 0.8) {
+        //   ctx.beginPath();
+        //   ctx.arc((i+Math.random()) * barWidth, ctx.canvas.height - 2 * Math.random() * aData[i], 5 + 0.2 * aData[i], 0,2 * Math.PI);
+        //   ctx.fill();
+        // }
       }
+      ctx.strokeStyle = this.props.primaryColor;
+      ctx.lineWidth = 5;
+      ctx.stroke();
     }
     window.requestAnimationFrame(this.paint.bind(this));
   }

@@ -37,9 +37,6 @@ class App extends React.Component {
     window.addEventListener('blur', function() {
       console.log("window lost focus");
     });
-    window.addEventListener('click', function() {
-      console.log("mouse button clicked");
-    });
 
   }
 

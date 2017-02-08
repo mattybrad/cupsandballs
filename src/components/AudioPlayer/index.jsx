@@ -50,9 +50,13 @@ class AudioPlayerComponent extends React.Component {
   }
 
   getAnalyserData() {
+    var output = [];
     var frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
     this.analyser.getByteFrequencyData(frequencyData);
-    return frequencyData;
+    for(var i = 0; i < frequencyData.length; i ++) {
+      output[i] = frequencyData[i] / 255;
+    }
+    return output;
   }
 
   render() {
