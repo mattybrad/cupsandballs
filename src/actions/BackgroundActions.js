@@ -23,3 +23,11 @@ export function setMusicDef(musicDef) {
     musicDef
   }
 }
+
+export const SET_AUDIO_PLAYER = 'SET_AUDIO_PLAYER';
+export function setAudioPlayer(audioPlayer) {
+  return {
+    type: SET_AUDIO_PLAYER,
+    audioPlayer
+  }
+}

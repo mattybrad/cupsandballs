@@ -2,8 +2,25 @@ import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router';
 import styles from './index.css';
+import * as Actions from '../../actions/BackgroundActions';
+import { connect } from 'react-redux';
 
-export default class AudioPlayer extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAudioPlayer: (audioPlayer) => {
+      dispatch(Actions.setAudioPlayer(audioPlayer));
+    }
+  }
+}
+
+
+class AudioPlayerComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,12 +39,20 @@ export default class AudioPlayer extends React.Component {
       this.analyser.fftSize = 32;
       this.mediaNode.connect(this.analyser);
       this.analyser.connect(this.actx.destination);
+      this.props.setAudioPlayer(this);
     } else {
       this.audio.pause();
+      this.props.setAudioPlayer(null);
     }
     this.setState({
       playing: !this.state.playing
     })
+  }
+
+  getAnalyserData() {
+    var frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteFrequencyData(frequencyData);
+    return frequencyData;
   }
 
   render() {
@@ -47,3 +72,10 @@ export default class AudioPlayer extends React.Component {
     )
   }
 }
+
+const AudioPlayer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AudioPlayerComponent);
+
+export default AudioPlayer;
