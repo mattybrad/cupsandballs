@@ -1,0 +1,15 @@
+.this {
+  background: rgba(196,196,196,0.25);
+  border-radius: 15px;
+  display: inline-block;
+  padding: 15px;
+  min-width: 130px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.button {
+  cursor: pointer;
+}

@@ -28,7 +28,7 @@ class MusicBackgroundComponent extends React.Component {
     this.lookAheadTime = LOOK_AHEAD_TIME;
     this.tickInterval = TICK_INTERVAL;
     this.windowBlurred = false;
-    this.actx = null;
+    this.actx = window.actx;
     this.currentModule = null;
     this.obsoleteModules = [];
     this.step = 0;
@@ -54,9 +54,12 @@ class MusicBackgroundComponent extends React.Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     window.addEventListener("blur", this.onBlur.bind(this));
     window.addEventListener("focus", this.onFocus.bind(this));
     this.actx = new (AudioContext||webkitAudioContext)();
+=======
+>>>>>>> a4ffb36dfbfa790c395cf71576e28a46ff7c30c5
     this.nextStepTime = this.actx.currentTime;
     this.lastTickTime = this.actx.currentTime;
     this.tick();

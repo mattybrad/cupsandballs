@@ -4,7 +4,8 @@ export default function Background(
   state = {
     active: true,
     primaryColor: '#00cc00',
-    secondaryColor: '#0000cc'
+    secondaryColor: '#0000cc',
+    audioPlayer: null
   },
   action
 ) {
@@ -25,6 +26,11 @@ export default function Background(
     return Object.assign({}, state, {
       musicDef: action.musicDef
     });
+
+    case Actions.SET_AUDIO_PLAYER:
+    return Object.assign({}, state, {
+      audioPlayer: action.audioPlayer
+    })
 
     default:
     return state

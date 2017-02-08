@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
   return {
 		primaryColor: state.Background.primaryColor,
 		secondaryColor: state.Background.secondaryColor,
-    image: state.Background.image
+    image: state.Background.image,
+    audioPlayer: state.Background.audioPlayer
   }
 }
 
@@ -53,11 +54,16 @@ class CanvasBackgroundComponent extends React.Component {
       var x, y;
       var timeDiff = Date.now() - this.state.changeTime;
       var numCircles = 2 + Math.round(10 * Math.max(0, 1 - timeDiff / 5000));
+
       for(var i=0;i<numCircles;i++){
         x = Math.random() * ctx.canvas.width;
         y = Math.random() * ctx.canvas.height;
         ctx.globalAlpha = 0.04;
-        ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
+        if(this.props.audioPlayer) {
+          ctx.fillStyle = "#000000";
+        } else {
+          ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
+        }
         ctx.beginPath();
         var r = 50 + 100 * Math.random();
         ctx.arc(x,y,r,0,2 * Math.PI);
@@ -71,6 +77,14 @@ class CanvasBackgroundComponent extends React.Component {
         this.state.imageElement,
         -this.state.imageElement.width/2,
         ctx.canvas.height/2 - this.state.imageElement.height/2);
+    }
+    if(this.props.audioPlayer) {
+      var aData = this.props.audioPlayer.getAnalyserData();
+      var aDataLen = aData.length;
+      ctx.fillStyle = "#FFFFFF";
+      for(var i = 0; i < aDataLen; i ++) {
+        if(Math.random() > 0.9) ctx.fillRect(i * 10, aData[i], 10, 10);
+      }
     }
     window.requestAnimationFrame(this.paint.bind(this));
   }
@@ -94,6 +108,11 @@ class CanvasBackgroundComponent extends React.Component {
         })
       }.bind(this));
       img.src = "/static/"+this.props.image;
+    }
+    if(prevProps.audioPlayer != this.props.audioPlayer) {
+      this.setState({
+        changeTime: Date.now()
+      })
     }
   }
 
