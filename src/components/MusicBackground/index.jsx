@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch) => {
 class MusicBackgroundComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.lookAheadTime = LOOK_AHEAD_TIME;
+    this.tickInterval = TICK_INTERVAL;
+    this.windowBlurred = false;
     this.actx = null;
     this.currentModule = null;
     this.obsoleteModules = [];
@@ -33,9 +36,26 @@ class MusicBackgroundComponent extends React.Component {
     this.lastTickTime = 0;
     this.targetTempo = this.tempo = null;
     this.firstModuleLoaded = false;
+    this.tickTimeout = null;
+  }
+
+  onBlur() {
+    //this.windowBlurred = true;
+    this.lookAheadTime = 3;
+    this.tickInterval = 1000;
+    if(this.tickTimeout) clearTimeout(this.tickTimeout);
+    this.tick();
+  }
+
+  onFocus() {
+    //this.windowBlurred = false;
+    this.lookAheadTime = LOOK_AHEAD_TIME;
+    this.tickInterval = TICK_INTERVAL;
   }
 
   componentDidMount() {
+    window.addEventListener("blur", this.onBlur.bind(this));
+    window.addEventListener("focus", this.onFocus.bind(this));
     this.actx = new (AudioContext||webkitAudioContext)();
     this.nextStepTime = this.actx.currentTime;
     this.lastTickTime = this.actx.currentTime;
@@ -66,7 +86,7 @@ class MusicBackgroundComponent extends React.Component {
 
   tick() {
     // don't do stuff until a module has been laoded
-    if(this.firstModuleLoaded) {
+    if(this.firstModuleLoaded && !this.windowBlurred) {
 
       // probably remove module tick at some point, but for now...
       if(this.currentModule) this.currentModule.tick();
@@ -78,7 +98,7 @@ class MusicBackgroundComponent extends React.Component {
       this.rampTempo();
       var currentStepLength = 60 / this.tempo / STEPS_PER_BEAT;
 
-      while(this.nextStepTime < this.actx.currentTime + LOOK_AHEAD_TIME) {
+      while(this.nextStepTime < this.actx.currentTime + this.lookAheadTime) {
         if(this.currentModule) this.currentModule.scheduleNotes(this.step, this.nextStepTime, currentStepLength);
         for(var i = 0; i < this.obsoleteModules.length; i ++) {
           this.obsoleteModules[i].scheduleNotes(this.step, this.nextStepTime, currentStepLength);
@@ -90,7 +110,7 @@ class MusicBackgroundComponent extends React.Component {
       this.lastTickTime = this.actx.currentTime;
 
     }
-    setTimeout(this.tick.bind(this), TICK_INTERVAL);
+    this.tickTimeout = setTimeout(this.tick.bind(this), this.tickInterval);
   }
 
   rampTempo() {
