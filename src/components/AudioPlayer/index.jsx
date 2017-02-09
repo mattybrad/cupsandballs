@@ -38,6 +38,7 @@ class AudioPlayerComponent extends React.Component {
       this.analyser = this.actx.createAnalyser();
       this.analyser.fftSize = 128;
       this.analyser.maxDecibels = -10;
+      this.analyser.minDecibels = -110;
       this.mediaNode.connect(this.analyser);
       this.analyser.connect(this.actx.destination);
       this.props.setAudioPlayer(this);
@@ -57,7 +58,6 @@ class AudioPlayerComponent extends React.Component {
     for(var i = frequencyData.length / 4; i < frequencyData.length / 2; i ++) {
       output.push(frequencyData[i] / 255);
     }
-    window.fd = output;
     return output;
   }
 
