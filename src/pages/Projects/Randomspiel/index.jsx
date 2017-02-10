@@ -1,13 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../../components/BackgroundDefinition';
+import MusicDefinition from '../../../components/MusicDefinition';
+import musicDef from './musicDef';
 
 export default class Project extends React.Component {
 
   render() {
     return(
       <div>
-        <BackgroundDefinition primaryColor='#DDDD00' secondaryColor='#00CC00' />
+        <BackgroundDefinition primaryColor='#AAAA00' secondaryColor='#009900' />
+        <MusicDefinition musicDef={musicDef} />
         <h1>Randomspiel</h1>
         <p>This project was originally meant to be a big, real-life musical instrument. The instrument would consist of a hopper full of marbles cascading down a vertical board full of nails, with the marbles hitting random glockenspiel tines at the bottom.</p>
         <p>The idea was to replicate the {"random arpeggio"} function of a synthesizer without the use of a computer, partly because I was interested in the way that computers are oddly bad at generating random numbers, but mainly because it seemed like a fun thing to do.</p>

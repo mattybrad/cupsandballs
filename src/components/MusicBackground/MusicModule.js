@@ -1,6 +1,6 @@
 import MusicModuleChannel from './MusicModuleChannel';
 
-const MODULE_VOLUME = 0.03;
+const MODULE_VOLUME = 0.1;
 
 export default class MusicModule {
   constructor(actx, def) {
