@@ -38,6 +38,10 @@ class AudioPlayerComponent extends React.Component {
     }
   }
 
+  onStopClick() {
+    this.stop();
+  }
+
   pause() {
     this.audio.pause();
     if(this.props.audioPlayer == this) this.props.setAudioPlayer(null);
@@ -64,6 +68,13 @@ class AudioPlayerComponent extends React.Component {
     this.setState({
       playing: true
     });
+  }
+
+  stop() {
+    if(this.audio) {
+      this.audio.currentTime = 0;
+      this.pause();
+    }
   }
 
   getAnalyserData() {
@@ -97,9 +108,11 @@ class AudioPlayerComponent extends React.Component {
           {this.state.playing?"Pause":"Play"}
         </span>
         <span>, </span>
-        <span className={classNames(styles.button)}>Seek</span>
-        <span>, </span>
-        <span className={classNames(styles.button)}>Stop.</span>
+        <span
+          className={classNames(styles.button)}
+          onClick={this.onStopClick.bind(this)}>
+          Stop.
+        </span>
       </div>
     )
   }
