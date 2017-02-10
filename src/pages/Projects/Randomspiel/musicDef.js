@@ -4,7 +4,7 @@ export default {
     {
       volume: 1,
       type: "osc",
-      waveform: "sine",
+      waveform: "triangle",
       attack: 1,
       decay: 0.1,
       sustain: 0.8,
