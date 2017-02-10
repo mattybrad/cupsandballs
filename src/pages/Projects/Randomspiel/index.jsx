@@ -4,7 +4,15 @@ import BackgroundDefinition from '../../../components/BackgroundDefinition';
 import MusicDefinition from '../../../components/MusicDefinition';
 import musicDef from './musicDef';
 
+var load = require("bundle?lazy!./test.js");
+
 export default class Project extends React.Component {
+
+  componentDidMount() {
+    load(function(file) {
+      alert("test!");
+    });
+  }
 
   render() {
     return(
