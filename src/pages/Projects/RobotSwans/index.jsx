@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../../components/BackgroundDefinition';
+import AudioPlayer from '../../../components/AudioPlayer';
 
 export default class Project extends React.Component {
 
@@ -10,10 +11,10 @@ export default class Project extends React.Component {
         <BackgroundDefinition primaryColor='#00FF99' secondaryColor='#006699' />
         <h1>Robot Swans</h1>
         <p>Robot Swans is a band I started with two friends in 2013. We play twinkly indie pop-rock. You can <a href="http://robotswans.bandcamp.com/" target="_blank">buy our album on Bandcamp</a>.</p>
-        <p>One of our early songs, written by Laura Theis, was called Pricks Of The Trade. This video does a pretty good job of illustrating our recording process.</p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/L8iwSJZW954" frameborder="0" allowfullscreen></iframe>
-        <p>We've also played live quite a bit around Oxford, including a gig for Sofar Sounds.</p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/WbQbwPG_TAk" frameborder="0" allowfullscreen></iframe>
+        <p>This is a song of ours called {"Islands"}:</p>
+        <AudioPlayer title="Robot Swans - Islands" src="/assets/audio/robotswans/robot_swans_islands.mp3" />
+        <p>And here is another song called {"Something In The Water"}</p>
+        <AudioPlayer title="Robot Swans - Something In The Water" src="/assets/audio/robotswans/robot_swans_something_in_the_water.mp3" />
       </div>
     )
   }

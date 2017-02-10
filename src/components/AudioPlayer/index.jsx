@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-
+    audioPlayer: state.Background.audioPlayer
   }
 }
 
@@ -32,6 +32,22 @@ class AudioPlayerComponent extends React.Component {
 
   onPlayClick() {
     if(!this.state.playing) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  }
+
+  pause() {
+    this.audio.pause();
+    if(this.props.audioPlayer == this) this.props.setAudioPlayer(null);
+    this.setState({
+      playing: false
+    });
+  }
+
+  play() {
+    if(!this.audio) {
       this.audio = new Audio(this.props.src);
       this.audio.play();
       this.mediaNode = this.actx.createMediaElementSource(this.audio);
@@ -41,14 +57,13 @@ class AudioPlayerComponent extends React.Component {
       this.analyser.minDecibels = -110;
       this.mediaNode.connect(this.analyser);
       this.analyser.connect(this.actx.destination);
-      this.props.setAudioPlayer(this);
     } else {
-      this.audio.pause();
-      this.props.setAudioPlayer(null);
+      this.audio.play();
     }
+    this.props.setAudioPlayer(this);
     this.setState({
-      playing: !this.state.playing
-    })
+      playing: true
+    });
   }
 
   getAnalyserData() {
@@ -59,6 +74,17 @@ class AudioPlayerComponent extends React.Component {
       output.push(frequencyData[i] / 255);
     }
     return output;
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.audioPlayer != this && this.state.playing) {
+      this.pause();
+    }
+  }
+
+  componentWillUnmount() {
+    this.pause();
+    this.props.setAudioPlayer(null);
   }
 
   render() {

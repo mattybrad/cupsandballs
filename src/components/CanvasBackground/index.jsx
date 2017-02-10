@@ -115,7 +115,7 @@ class CanvasBackgroundComponent extends React.Component {
           imageElement: img
         })
       }.bind(this));
-      img.src = "/static/"+this.props.image;
+      img.src = "/assets/images/"+this.props.image;
     }
     if(prevProps.audioPlayer != this.props.audioPlayer) {
       this.setState({
