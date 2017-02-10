@@ -2,6 +2,7 @@ export default {
   tempo: 70,
   channels: [
     {
+      volume: 0.5,
       type: "osc",
       arpeggiator: {
         octaves: 4,
@@ -10,6 +11,7 @@ export default {
       }
     },
     {
+      volume: 0.5,
       type: "osc",
       arpeggiator: {
         octaves: 4,
@@ -18,6 +20,7 @@ export default {
       }
     },
     {
+      volume: 0.5,
       type: "osc",
       arpeggiator: {
         octaves: 4,

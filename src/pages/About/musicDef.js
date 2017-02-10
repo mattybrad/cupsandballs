@@ -2,6 +2,7 @@ export default {
   tempo: 40,
   channels: [
     {
+      volume: 0.4,
       type: "osc",
       waveform: "square",
       attack: 0,
@@ -20,17 +21,18 @@ export default {
       ]
     },
     {
+      volume: 1,
       type: "osc",
-      waveform: "sine",
+      waveform: "triangle",
       attack: 0.5,
       decay: 0.2,
       sustain: 0.7,
       release: 1,
       steps: 16,
       notes: [
-        ["E1",0,4],
-        ["F1",4,4],
-        ["G1",8,8]
+        ["E2",0,4],
+        ["F2",4,4],
+        ["G2",8,8]
       ]
     }
   ]

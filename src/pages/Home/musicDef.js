@@ -2,6 +2,7 @@ export default {
   tempo: 90,
   channels: [
     {
+      volume: 0.7,
       type: "osc",
       steps: 4,
       notes: [

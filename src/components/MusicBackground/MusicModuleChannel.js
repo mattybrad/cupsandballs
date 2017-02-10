@@ -14,6 +14,7 @@ export default class MusicModuleChannel {
   constructor(actx, moduleNode, def) {
     this.actx = actx;
     this.moduleNode = moduleNode;
+    this.volume = def.volume || 1;
     this.waveform = def.waveform || "sine";
     this.attack = def.attack || 0.0;
     this.decay = def.decay || 0.5;
@@ -78,9 +79,9 @@ export default class MusicModuleChannel {
     gainNode.connect(this.moduleNode);
     gainNode.gain.value = 0;
     gainNode.gain.setValueAtTime(0, startTime);
-    gainNode.gain.linearRampToValueAtTime(1, startTime + this.attack);
-    gainNode.gain.linearRampToValueAtTime(this.sustain, startTime + this.attack + this.decay);
-    gainNode.gain.setValueAtTime(this.sustain, startTime + duration);
+    gainNode.gain.linearRampToValueAtTime(this.volume, startTime + this.attack);
+    gainNode.gain.linearRampToValueAtTime(this.volume * this.sustain, startTime + this.attack + this.decay);
+    gainNode.gain.setValueAtTime(this.volume * this.sustain, startTime + duration);
     gainNode.gain.linearRampToValueAtTime(0, startTime + duration + this.release);
     osc.start(startTime);
     osc.stop(startTime + duration + this.release);
