@@ -84,15 +84,18 @@ class CanvasBackgroundComponent extends React.Component {
       var aData = this.props.audioPlayer.getAnalyserData();
       var aDataLen = aData.length;
       var barWidth = ctx.canvas.width / (aDataLen - 1);
-      ctx.fillStyle = ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
-      ctx.globalAlpha = 0.2;
+      ctx.fillStyle = this.props.primaryColor;
+      ctx.globalAlpha = 0.1;
       ctx.beginPath();
+      ctx.moveTo(0, ctx.canvas.height);
       for(var i = 0; i < aDataLen; i ++) {
         ctx.lineTo(i>0?(i+0.5-Math.random())*barWidth:0, ctx.canvas.height * (1 - 0.5 * aData[i]));
       }
-      ctx.strokeStyle = this.props.primaryColor;
-      ctx.lineWidth = 1;
+      ctx.lineTo(ctx.canvas.width, ctx.canvas.height);
+      ctx.strokeStyle = this.props.secondaryColor;
+      ctx.lineWidth = 3;
       ctx.stroke();
+      ctx.fill();
     }
     window.requestAnimationFrame(this.paint.bind(this));
   }
