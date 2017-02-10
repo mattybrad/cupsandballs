@@ -28,6 +28,10 @@ class MusicDefinitionComponent extends React.Component {
 		this.props.setMusicDef(this.props.musicDef);
 	}
 
+  componentWillUnmount() {
+    this.props.setMusicDef({});
+  }
+
 	render() {
 		return (
 		    null
