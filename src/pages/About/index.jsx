@@ -9,7 +9,7 @@ export default class About extends React.Component {
   render() {
     return(
       <div>
-        <BackgroundDefinition primaryColor='#339900' secondaryColor='#006600' />
+        <BackgroundDefinition primaryColor='#33BB00' secondaryColor='#003333' />
         <MusicDefinition musicDef={musicDef} />
         <h1>About</h1>
         <p>Here is some text.</p>
