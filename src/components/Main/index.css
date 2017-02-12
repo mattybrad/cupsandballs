@@ -6,11 +6,11 @@
   text-align: left;
   display: inline-block;
   width: 800px;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
   animation-name: introFade;
-  animation-duration: 6s;
+  animation-duration: 2s;
 }
 
 @keyframes introFade {

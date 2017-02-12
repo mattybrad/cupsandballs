@@ -1,4 +1,5 @@
 import React from 'react';
+
 window.PIXI = require('phaser/build/custom/pixi');
 window.p2 = require('phaser/build/custom/p2');
 window.Phaser = require('phaser/build/custom/phaser-split');
@@ -6,7 +7,7 @@ window.Phaser = require('phaser/build/custom/phaser-split');
 export default class Test extends React.Component {
 
   componentDidMount() {
-    var game = new Phaser.Game(400, 490, Phaser.AUTO, this.refs.phaserDiv);
+    var game = new Phaser.Game(760, 600, Phaser.AUTO, this.refs.phaserDiv);
     var game_state = {};
 
     // Creates a new 'main' state that wil contain the game
@@ -36,10 +37,7 @@ export default class Test extends React.Component {
 
   render() {
     return(
-      <div>
-        <p>THIS IS A TEST COMPONENT</p>
-        <div ref="phaserDiv"></div>
-      </div>
+      <div ref="phaserDiv"></div>
     )
   }
 }
