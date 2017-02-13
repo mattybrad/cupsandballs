@@ -9,7 +9,8 @@ export default class Randomspiel extends React.Component {
   componentDidMount() {
     var game = new Phaser.Game(760, 600, Phaser.AUTO, this.refs.phaserDiv);
     var game_state = {};
-    var ball;
+    var balls;
+    var pins;
 
     game_state.main = function() { };
     game_state.main.prototype = {
@@ -22,21 +23,35 @@ export default class Randomspiel extends React.Component {
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.gravity.y = 2000;
         game.physics.p2.setImpactEvents(true);
-        game.physics.p2.restitution = 0.8;
+        game.physics.p2.restitution = 0.3;
 
         var ballCollisionGroup = game.physics.p2.createCollisionGroup();
         var pinCollisionGroup = game.physics.p2.createCollisionGroup();
 
         //game.physics.p2.updateBoundsCollisionGroup();
 
-        ball = game.add.sprite(game.width / 2, 10, 'ball');
-        game.physics.p2.enable(ball);
-        this.resetBall();
-        ball.body.setCircle(25);
-        ball.body.setCollisionGroup(ballCollisionGroup);
-        ball.body.collides(pinCollisionGroup);
+        // ball = game.add.sprite(game.width / 2, 10, 'ball');
+        // game.physics.p2.enable(ball);
+        // this.resetBall();
+        // ball.body.setCircle(25);
+        // ball.body.setCollisionGroup(ballCollisionGroup);
+        // ball.body.collides(pinCollisionGroup);
 
-        var pins = game.add.group();
+        balls = game.add.group();
+        balls.enableBody = true;
+        balls.physicsBodyType = Phaser.Physics.P2JS;
+        for(var i = 0; i < 10; i ++) {
+          var ball = balls.create(
+            100 + i * 100,
+            0,
+            'ball'
+          );
+          ball.body.setCircle(25);
+          ball.body.setCollisionGroup(ballCollisionGroup);
+          ball.body.collides([pinCollisionGroup,ballCollisionGroup]);
+        }
+
+        pins = game.add.group();
         pins.enableBody = true;
         pins.physicsBodyType = Phaser.Physics.P2JS;
         var pinGroupHeight = 0.7; // fraction of overall height
@@ -61,16 +76,18 @@ export default class Randomspiel extends React.Component {
         }
       },
 
-      resetBall() {
+      resetBall(ball) {
         ball.body.y = 10;
         ball.body.x = game.width / 2 + 5 * (1-Math.random());
         ball.body.velocity.x = ball.body.velocity.y = 0;
       },
 
       update: function() {
-        if(ball.body.y > 600) {
-          this.resetBall();
-        }
+        balls.forEach(function(ball){
+          if(ball.body.y > 600) {
+            this.resetBall(ball);
+          }
+        }.bind(this))
       }
     };
 
