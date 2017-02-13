@@ -4,7 +4,7 @@ window.PIXI = require('phaser/build/custom/pixi');
 window.p2 = require('phaser/build/custom/p2');
 window.Phaser = require('phaser/build/custom/phaser-split');
 
-export default class Randomspiel extends React.Component {
+export default class Test extends React.Component {
 
   componentDidMount() {
     var game = new Phaser.Game(760, 600, Phaser.AUTO, this.refs.phaserDiv);
