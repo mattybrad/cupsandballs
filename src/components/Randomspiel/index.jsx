@@ -7,10 +7,12 @@ window.Phaser = require('phaser/build/custom/phaser-split');
 export default class Randomspiel extends React.Component {
 
   componentDidMount() {
-    var game = new Phaser.Game(760, 600, Phaser.AUTO, this.refs.phaserDiv);
+    var game = new Phaser.Game(this.props.width, this.props.height, Phaser.AUTO, this.refs.phaserDiv);
     var game_state = {};
     var balls;
     var pins;
+    var ballCollisionGroup;
+    var pinCollisionGroup;
 
     game_state.main = function() { };
     game_state.main.prototype = {
@@ -21,43 +23,30 @@ export default class Randomspiel extends React.Component {
 
       create: function()  {
         game.physics.startSystem(Phaser.Physics.P2JS);
-        game.physics.p2.gravity.y = 2000;
+        game.physics.p2.gravity.y = 1500;
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.3;
 
-        var ballCollisionGroup = game.physics.p2.createCollisionGroup();
-        var pinCollisionGroup = game.physics.p2.createCollisionGroup();
-
-        //game.physics.p2.updateBoundsCollisionGroup();
-
-        // ball = game.add.sprite(game.width / 2, 10, 'ball');
-        // game.physics.p2.enable(ball);
-        // this.resetBall();
-        // ball.body.setCircle(25);
-        // ball.body.setCollisionGroup(ballCollisionGroup);
-        // ball.body.collides(pinCollisionGroup);
+        ballCollisionGroup = game.physics.p2.createCollisionGroup();
+        pinCollisionGroup = game.physics.p2.createCollisionGroup();
 
         balls = game.add.group();
         balls.enableBody = true;
         balls.physicsBodyType = Phaser.Physics.P2JS;
-        for(var i = 0; i < 10; i ++) {
-          var ball = balls.create(
-            100 + i * 100,
-            0,
-            'ball'
-          );
-          ball.body.setCircle(25);
-          ball.body.setCollisionGroup(ballCollisionGroup);
-          ball.body.collides([pinCollisionGroup,ballCollisionGroup]);
-        }
+        this.generateBall();
+        window.genLoop = game.time.events.loop(1 * Phaser.Timer.SECOND, this.generateBall, this);
 
         pins = game.add.group();
         pins.enableBody = true;
         pins.physicsBodyType = Phaser.Physics.P2JS;
+        this.generatePins(10, 5);
+        window.genPins = this.generatePins;
+      },
+
+      generatePins(cols, rows) {
+        pins.removeAll(true);
         var pinGroupHeight = 0.7; // fraction of overall height
         var pinGroupTopSpace = 0.15; // fraction of overall height
-        var cols = 10;
-        var rows = 8;
         var oddRow;
         for(var i = 0; i < rows; i ++) {
           oddRow = !!(i%2);
@@ -76,18 +65,22 @@ export default class Randomspiel extends React.Component {
         }
       },
 
-      resetBall(ball) {
-        ball.body.y = 10;
-        ball.body.x = game.width / 2 + 5 * (1-Math.random());
+      generateBall() {
+        var ball = balls.create(0, 0, 'ball');
+        ball.body.y = -50;
+        ball.body.x = game.width / 2 + 100 * (0.5-Math.random());
         ball.body.velocity.x = ball.body.velocity.y = 0;
+        ball.body.setCircle(25);
+        ball.body.setCollisionGroup(ballCollisionGroup);
+        ball.body.collides([pinCollisionGroup,ballCollisionGroup]);
       },
 
       update: function() {
         balls.forEach(function(ball){
           if(ball.body.y > 600) {
-            this.resetBall(ball);
+            balls.remove(ball, true);
           }
-        }.bind(this))
+        })
       }
     };
 
