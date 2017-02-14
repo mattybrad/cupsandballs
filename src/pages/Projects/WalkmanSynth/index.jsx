@@ -2,8 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../../components/BackgroundDefinition';
 import SoundToy from '../../../components/SoundToy';
+import Oscillator from '../../../components/Oscillator';
 
 export default class Project extends React.Component {
+
+  componentDidMount() {
+    var o = new Oscillator(window.actx);
+  }
 
   render() {
     return(
