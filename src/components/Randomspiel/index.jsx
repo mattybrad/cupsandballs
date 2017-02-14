@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 const mapStateToProps = (state) => {
   return {
 		cols: state.SoundToy.randomspiel.cols,
-		rows: state.SoundToy.randomspiel.rows
+		rows: state.SoundToy.randomspiel.rows,
+    ballRate: state.SoundToy.randomspiel.ballRate
   }
 }
 
@@ -58,13 +59,12 @@ class RandomspielComponent extends React.Component {
         balls.enableBody = true;
         balls.physicsBodyType = Phaser.Physics.P2JS;
         this.generateBall();
-        window.genLoop = game.time.events.loop(0.1 * Phaser.Timer.SECOND, this.generateBall, this);
+        component.genLoop = game.time.events.loop(Phaser.Timer.SECOND / component.props.ballRate, this.generateBall, this);
 
         pins = game.add.group();
         pins.enableBody = true;
         pins.physicsBodyType = Phaser.Physics.P2JS;
         this.generatePins(component.props.cols, component.props.rows);
-        window.genPins = this.generatePins;
       },
 
       generatePins(cols, rows) {
@@ -116,6 +116,9 @@ class RandomspielComponent extends React.Component {
   componentDidUpdate(prevProps) {
     if(prevProps.rows != this.props.rows || prevProps.cols != this.props.cols) {
       this.gameState.main.prototype.generatePins(this.props.cols, this.props.rows);
+    }
+    if(prevProps.ballRate != this.props.ballRate && this.genLoop) {
+      this.genLoop.delay = Phaser.Timer.SECOND / this.props.ballRate;
     }
   }
 

@@ -10,6 +10,10 @@ export default class NumberInput extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if(this.props.onChange) this.props.onChange(this.state.currentValue);
+  }
+
   changeValue(increment) {
     this.setState({
       currentValue: Math.max(this.props.min, Math.min(this.props.max,this.state.currentValue + increment))
