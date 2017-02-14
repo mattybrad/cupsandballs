@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../components/BackgroundDefinition';
+import MusicDefinition from '../../components/MusicDefinition';
+import musicDef from './musicDef';
 import ProjectPreview from '../../components/ProjectPreview';
 import * as ProjectList from './allProjects.jsx';
 
@@ -27,6 +29,7 @@ export default class Projects extends React.Component {
     return(
       <div>
         <BackgroundDefinition primaryColor='#000066' secondaryColor='#0066ff' />
+        <MusicDefinition musicDef={musicDef} />
         <h1>Projects</h1>
         <p>Below is a list of projects I have worked on, representing a cross-section of music, electronics, programming, and occasionally other (in)disciplines. They are in no particular order. In fact, the order is randomly generated each time you view the page.</p>
         <div>
