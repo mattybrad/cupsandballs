@@ -59,7 +59,7 @@ class RandomspielComponent extends React.Component {
         balls.enableBody = true;
         balls.physicsBodyType = Phaser.Physics.P2JS;
         this.generateBall();
-        component.genLoop = game.time.events.loop(Phaser.Timer.SECOND / component.props.ballRate, this.generateBall, this);
+        component.genLoop = game.time.events.loop(60 * Phaser.Timer.SECOND / component.props.ballRate, this.generateBall, this);
 
         pins = game.add.group();
         pins.enableBody = true;
@@ -100,9 +100,13 @@ class RandomspielComponent extends React.Component {
       },
 
       update: function() {
+        var notes = [0,2,4,5,7,9,11,12,14,16,17,19,21,23];
         balls.forEach(function(ball){
           if(ball.body.y > game.height) {
-            var o = new Oscillator(window.actx);
+            var o = new Oscillator(
+              window.actx,
+              40 + notes[Math.floor(notes.length * Math.min(0.99,Math.max(0,ball.body.x/game.width)))]
+            );
             balls.remove(ball, true);
           }
         })
@@ -118,12 +122,12 @@ class RandomspielComponent extends React.Component {
       this.gameState.main.prototype.generatePins(this.props.cols, this.props.rows);
     }
     if(prevProps.ballRate != this.props.ballRate && this.genLoop) {
-      this.genLoop.delay = Phaser.Timer.SECOND / this.props.ballRate;
+      this.genLoop.delay = 60 * Phaser.Timer.SECOND / this.props.ballRate;
     }
   }
 
   componentWillUnmount() {
-    if(this.state.game) this.state.game.destroy();
+    if(this.game) this.game.destroy();
   }
 
   render() {

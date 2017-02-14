@@ -2,7 +2,7 @@ export default {
   tempo: 60,
   channels: [
     {
-      volume: 1,
+      volume: 0.6,
       type: "osc",
       waveform: "triangle",
       attack: 1,
