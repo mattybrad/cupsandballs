@@ -18,15 +18,29 @@ export default {
       ]
     },
     {
-      volume: 0.5,
+      volume: 0.3,
       type: "osc",
-      waveform: "triangle",
+      waveform: "sine",
       attack: 0,
       decay: 0.15,
       sustain: 0.5,
       release: 0.5,
       arpeggiator: {
-        octaves: 2,
+        octaves: 1,
+        notes:["A3","B3","C#3","D#3","F3","G3"],
+        pattern: "random"
+      }
+    },
+    {
+      volume: 0.3,
+      type: "osc",
+      waveform: "sine",
+      attack: 0,
+      decay: 0.15,
+      sustain: 0.5,
+      release: 0.5,
+      arpeggiator: {
+        octaves: 1,
         notes:["A3","B3","C#3","D#3","F3","G3"],
         pattern: "random"
       }
