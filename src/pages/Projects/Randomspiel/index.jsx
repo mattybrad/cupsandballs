@@ -17,7 +17,7 @@ export default class Project extends React.Component {
   render() {
     return(
       <div>
-        <BackgroundDefinition primaryColor='#000033' secondaryColor='#000099' />
+        <BackgroundDefinition primaryColor='#550033' secondaryColor='#550099' />
         <MusicDefinition musicDef={musicDef} />
         <h1>Randomspiel</h1>
         <SoundToy toy="randomspiel" width={760} height={400} />
