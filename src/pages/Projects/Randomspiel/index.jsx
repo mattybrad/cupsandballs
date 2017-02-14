@@ -5,14 +5,36 @@ import MusicDefinition from '../../../components/MusicDefinition';
 import musicDef from './musicDef';
 import SoundToy from '../../../components/SoundToy';
 import NumberInput from '../../../components/NumberInput';
+import * as Actions from '../../../actions/SoundToyActions';
+import { connect } from 'react-redux';
 
-export default class Project extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateSoundToy: (toy, vars) => {
+      dispatch(Actions.updateSoundToy(toy, vars));
+    }
+  }
+}
+
+class ProjectComponent extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
 
     }
+  }
+
+  onValueChange(newValue) {
+    this.props.updateSoundToy("randomspiel", {
+      cols: newValue
+    })
   }
 
   render() {
@@ -23,7 +45,7 @@ export default class Project extends React.Component {
         <h1>Randomspiel</h1>
         <SoundToy toy="randomspiel" width={760} height={400} />
         <div>
-          <NumberInput label="Columns" defaultValue={10} min={3} max={20} />
+          <NumberInput label="Columns" defaultValue={10} min={3} max={20} onChange={this.onValueChange.bind(this)} />
           <NumberInput label="Rows" defaultValue={6} min={3} max={20} />
           <NumberInput label="Ball rate" unit="per second" defaultValue={6} min={3} max={20} />
         </div>
@@ -35,6 +57,13 @@ export default class Project extends React.Component {
   }
 }
 
+const Project = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProjectComponent);
+
+export default Project;
+
 Project.shortcode = "randomspiel";
 Project.title = "Randomspiel";
-Project.description = "A virtual sound toy wherein marbles bounce onto a glockenspiel"
+Project.description = "A virtual sound toy wherein marbles bounce onto a glockenspiel";

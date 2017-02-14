@@ -16,6 +16,12 @@ export default class NumberInput extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.currentValue != this.state.currentValue && this.props.onChange) {
+      this.props.onChange(this.state.currentValue);
+    }
+  }
+
   render() {
     return(
       <div>

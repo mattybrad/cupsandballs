@@ -2,7 +2,10 @@ import * as Actions from '../actions/SoundToyActions';
 
 export default function SoundToy(
   state = {
-    randomspiel: {cols: 30}
+    randomspiel: {
+      cols: 10,
+      rows: 5
+    }
   },
   action
 ) {
