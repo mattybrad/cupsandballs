@@ -21,7 +21,7 @@ export default class Project extends React.Component {
         <BackgroundDefinition primaryColor='#550033' secondaryColor='#550099' />
         <MusicDefinition musicDef={musicDef} />
         <h1>Randomspiel</h1>
-        <SoundToy toy="randohmspiel" width={760} height={400} />
+        <SoundToy toy="randomspiel" width={760} height={400} />
         <div>
           <NumberInput label="Columns" defaultValue={10} min={3} max={20} />
           <NumberInput label="Rows" defaultValue={6} min={3} max={20} />

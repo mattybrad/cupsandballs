@@ -1,9 +1,24 @@
 import React from 'react';
 import Oscillator from '../Oscillator';
+import * as Actions from '../../actions/SoundToyActions';
+import { connect } from 'react-redux';
 
-export default class Randomspiel extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+		cols: state.SoundToy.randomspiel.cols
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+class RandomspielComponent extends React.Component {
 
   componentDidMount() {
+    var testThis = this;
     require.ensure([], () => {
       var PhaserLoader = require('../PhaserLoader');
 
@@ -43,7 +58,7 @@ export default class Randomspiel extends React.Component {
           pins = game.add.group();
           pins.enableBody = true;
           pins.physicsBodyType = Phaser.Physics.P2JS;
-          this.generatePins(10, 5);
+          this.generatePins(testThis.props.cols, 5);
           window.genPins = this.generatePins;
         },
 
@@ -104,3 +119,10 @@ export default class Randomspiel extends React.Component {
     )
   }
 }
+
+const Randomspiel = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RandomspielComponent);
+
+export default Randomspiel;
