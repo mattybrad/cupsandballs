@@ -8,6 +8,10 @@ export default class Randomspiel extends React.Component {
       var PhaserLoader = require('../PhaserLoader');
 
       var game = new Phaser.Game(this.props.width, this.props.height, Phaser.AUTO, this.refs.phaserDiv);
+      this.setState({
+        game
+      })
+
       var game_state = {};
       var balls;
       var pins;
@@ -88,6 +92,10 @@ export default class Randomspiel extends React.Component {
       game.state.add('main', game_state.main);
       game.state.start('main');
     })
+  }
+
+  componentWillUnmount() {
+    if(this.state.game) this.state.game.destroy();
   }
 
   render() {
