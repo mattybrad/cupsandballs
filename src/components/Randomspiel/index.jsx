@@ -1,11 +1,12 @@
 import React from 'react';
+import Oscillator from '../Oscillator';
 
 export default class Randomspiel extends React.Component {
 
   componentDidMount() {
     require.ensure([], () => {
       var PhaserLoader = require('../PhaserLoader');
-      
+
       var game = new Phaser.Game(this.props.width, this.props.height, Phaser.AUTO, this.refs.phaserDiv);
       var game_state = {};
       var balls;
@@ -33,7 +34,7 @@ export default class Randomspiel extends React.Component {
           balls.enableBody = true;
           balls.physicsBodyType = Phaser.Physics.P2JS;
           this.generateBall();
-          window.genLoop = game.time.events.loop(1 * Phaser.Timer.SECOND, this.generateBall, this);
+          window.genLoop = game.time.events.loop(0.1 * Phaser.Timer.SECOND, this.generateBall, this);
 
           pins = game.add.group();
           pins.enableBody = true;
@@ -76,10 +77,11 @@ export default class Randomspiel extends React.Component {
 
         update: function() {
           balls.forEach(function(ball){
-            if(ball.body.y > 600) {
+            if(ball.body.y > game.height) {
+              var o = new Oscillator(window.actx);
               balls.remove(ball, true);
             }
-          })
+          }.bind(this))
         }
       };
 

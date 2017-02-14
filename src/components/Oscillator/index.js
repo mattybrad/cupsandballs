@@ -3,14 +3,14 @@ export default class Oscillator {
   constructor(actx) {
     this.actx = actx;
     this.waveform = "square";
-    var noteNumber = 40;
-    this.volume = 1;
-    this.attack = 0.05;
+    var noteNumber = 20+Math.floor(Math.random()*30);
+    this.volume = 0.05;
+    this.attack = 0;
     this.decay = 0.1;
     this.sustain = 0.5;
     this.release = 0.5;
-    var startTime = this.actx.currentTime + 2;
-    var duration = 2;
+    var startTime = this.actx.currentTime;
+    var duration = 0.2;
     this.moduleNode = this.actx.destination;
 
     var osc = this.actx.createOscillator();
