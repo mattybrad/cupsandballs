@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import BackgroundDefinition from '../../../components/BackgroundDefinition';
+import SoundToy from '../../../components/SoundToy';
 
 export default class Project extends React.Component {
 
@@ -9,7 +10,7 @@ export default class Project extends React.Component {
       <div>
         <BackgroundDefinition primaryColor='#FF9900' secondaryColor='#CC0000' />
         <h1>Walkman Synth</h1>
-        <p></p>
+        <SoundToy toy="othertoy" width={760} height={400} />
       </div>
     )
   }
