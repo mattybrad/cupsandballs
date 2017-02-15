@@ -60,6 +60,7 @@ class App extends React.Component {
               <Route path={Projects.Randomspiel.shortcode} component={Projects.Randomspiel} />
               <Route path={Projects.WalkmanSynth.shortcode} component={Projects.WalkmanSynth} />
               <Route path={Projects.ProjectPluto.shortcode} component={Projects.ProjectPluto} />
+              <Route path={Projects.WaveMaker.shortcode} component={Projects.WaveMaker} />
             </Route>
             <Route path="ambience" component={Pages.Ambience} />
             <Route path="*" component={Pages.FourZeroFour} />
