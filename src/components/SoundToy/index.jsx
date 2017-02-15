@@ -23,6 +23,15 @@ export default class SoundToy extends React.Component {
       })
       break;
 
+      case "wavemaker":
+      require.ensure([], () => {
+        var ToyComponent = require('../WaveMaker');
+        this.setState({
+          ToyComponent: ToyComponent.default
+        })
+      })
+      break;
+
       case "othertoy":
       require.ensure([], () => {
         var ToyComponent = require('../OtherToy');
