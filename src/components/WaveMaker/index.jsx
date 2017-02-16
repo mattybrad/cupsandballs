@@ -18,14 +18,7 @@ const mapDispatchToProps = (dispatch) => {
 class WaveMakerComponent extends React.Component {
 
   componentDidMount() {
-    require.ensure([], () => {
-      var PhaserLoader = require('../PhaserLoader');
-      this.startGame();
-    })
-  }
-
-  startGame() {
-    // phaser stuff... or maybe not phaser for this
+    // note to self: use http://mathjs.org/ for parsing equations
   }
 
   componentDidUpdate(prevProps) {
@@ -38,7 +31,7 @@ class WaveMakerComponent extends React.Component {
 
   render() {
     return(
-      <div ref="phaserDiv">This will be the wave thing</div>
+      <div ref="phaserDiv">{"f(t) = sin(t)"}</div>
     )
   }
 }
