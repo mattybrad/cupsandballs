@@ -47,15 +47,24 @@ class WaveMakerComponent extends React.Component {
   onSubmit(ev) {
     ev.preventDefault();
     var equationCode = math.compile(this.state.equation);
+    var duration = 10;
+    var frameCount = window.actx.sampleRate * duration;
+    var arrayBuffer = window.actx.createBuffer(1, frameCount, window.actx.sampleRate);
     var output = [];
     var scope = {};
-    for(var t=0; t<5; t+=0.01) {
-      scope.t = t;
-      output.push(equationCode.eval(scope));
+    var interval = 1/window.actx.sampleRate;
+    var channelData = arrayBuffer.getChannelData(0);
+    console.log("start processing");
+    for(var i=0; i<frameCount; i++) {
+      scope.t = i / window.actx.sampleRate;
+      // output.push(equationCode.eval(scope));
+      channelData[i] = equationCode.eval(scope);
     }
-    this.setState({
-      output: output
-    })
+    console.log("end processing");
+    var bufferSource = window.actx.createBufferSource();
+    bufferSource.buffer = arrayBuffer;
+    bufferSource.connect(window.actx.destination);
+    bufferSource.start();
   }
 
   render() {
