@@ -21,13 +21,14 @@ class WaveMakerComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      equation: "",
-      output: []
+      equation: "sin(2*pi*440*t)",
+      duration: 1
     }
   }
 
   componentDidMount() {
     window.m = math;
+    window.s = this.onSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -38,21 +39,19 @@ class WaveMakerComponent extends React.Component {
     // destroy game
   }
 
-  onEquationChange(ev) {
-    this.setState({
-      equation: ev.target.value
-    })
+  onChange(param, ev) {
+    var obj = {};
+    obj[param] = ev.target.value;
+    this.setState(obj);
   }
 
   onSubmit(ev) {
     ev.preventDefault();
     var equationCode = math.compile(this.state.equation);
-    var duration = 10;
-    var frameCount = window.actx.sampleRate * duration;
+    var frameCount = window.actx.sampleRate * this.state.duration;
     var arrayBuffer = window.actx.createBuffer(1, frameCount, window.actx.sampleRate);
     var output = [];
     var scope = {};
-    var interval = 1/window.actx.sampleRate;
     var channelData = arrayBuffer.getChannelData(0);
     console.log("start processing");
     var error = false;
@@ -63,10 +62,16 @@ class WaveMakerComponent extends React.Component {
       } catch(err) {
         error = true;
         console.log("error in formula");
+        this.setState({
+          errorMessage: "Error in formula."
+        })
       }
     }
     console.log("end processing");
     if(!error) {
+      this.setState({
+        errorMessage: null
+      })
       var bufferSource = window.actx.createBufferSource();
       bufferSource.buffer = arrayBuffer;
       bufferSource.connect(window.actx.destination);
@@ -79,12 +84,18 @@ class WaveMakerComponent extends React.Component {
       <div>
         <form onSubmit={this.onSubmit.bind(this)}>
           <input
+            type="number"
+            value={this.state.duration}
+            onChange={this.onChange.bind(this,"duration")}
+            /><br/>
+          <input
             type="text"
             value={this.state.equation}
-            onChange={this.onEquationChange.bind(this)}
-            ></input>
+            onChange={this.onChange.bind(this,"equation")}
+            /><br/>
+          <input type="submit"></input>
         </form>
-        <div>{this.state.output.join(", ")}</div>
+        {this.state.errorMessage?<p>{this.state.errorMessage}</p>:null}
       </div>
     )
   }
