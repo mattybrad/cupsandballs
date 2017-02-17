@@ -27,7 +27,7 @@ class WaveMakerComponent extends React.Component {
   }
 
   componentDidMount() {
-
+    window.m = math;
   }
 
   componentDidUpdate(prevProps) {
@@ -55,16 +55,23 @@ class WaveMakerComponent extends React.Component {
     var interval = 1/window.actx.sampleRate;
     var channelData = arrayBuffer.getChannelData(0);
     console.log("start processing");
-    for(var i=0; i<frameCount; i++) {
+    var error = false;
+    for(var i=0; i<frameCount && !error; i++) {
       scope.t = i / window.actx.sampleRate;
-      // output.push(equationCode.eval(scope));
-      channelData[i] = equationCode.eval(scope);
+      try {
+        channelData[i] = equationCode.eval(scope);
+      } catch(err) {
+        error = true;
+        console.log("error in formula");
+      }
     }
     console.log("end processing");
-    var bufferSource = window.actx.createBufferSource();
-    bufferSource.buffer = arrayBuffer;
-    bufferSource.connect(window.actx.destination);
-    bufferSource.start();
+    if(!error) {
+      var bufferSource = window.actx.createBufferSource();
+      bufferSource.buffer = arrayBuffer;
+      bufferSource.connect(window.actx.destination);
+      bufferSource.start();
+    }
   }
 
   render() {
