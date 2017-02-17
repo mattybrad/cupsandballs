@@ -2,6 +2,7 @@ import React from 'react';
 import Oscillator from '../Oscillator';
 import * as Actions from '../../actions/SoundToyActions';
 import { connect } from 'react-redux';
+import math from 'mathjs';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,8 +18,16 @@ const mapDispatchToProps = (dispatch) => {
 
 class WaveMakerComponent extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      equation: "",
+      output: []
+    }
+  }
+
   componentDidMount() {
-    // note to self: use http://mathjs.org/ for parsing equations
+
   }
 
   componentDidUpdate(prevProps) {
@@ -29,9 +38,38 @@ class WaveMakerComponent extends React.Component {
     // destroy game
   }
 
+  onEquationChange(ev) {
+    this.setState({
+      equation: ev.target.value
+    })
+  }
+
+  onSubmit(ev) {
+    ev.preventDefault();
+    var equationCode = math.compile(this.state.equation);
+    var output = [];
+    var scope = {};
+    for(var t=0; t<5; t+=0.01) {
+      scope.t = t;
+      output.push(equationCode.eval(scope));
+    }
+    this.setState({
+      output: output
+    })
+  }
+
   render() {
     return(
-      <div ref="phaserDiv">{"f(t) = sin(t)"}</div>
+      <div>
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <input
+            type="text"
+            value={this.state.equation}
+            onChange={this.onEquationChange.bind(this)}
+            ></input>
+        </form>
+        <div>{this.state.output.join(", ")}</div>
+      </div>
     )
   }
 }
