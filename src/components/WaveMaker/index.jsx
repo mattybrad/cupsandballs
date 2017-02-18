@@ -28,11 +28,10 @@ class WaveMakerComponent extends React.Component {
 
   componentDidMount() {
     window.m = math;
-    window.s = this.onSubmit.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    // check props
+  componentDidUpdate(prevProps, prevState) {
+    
   }
 
   componentWillUnmount() {
@@ -95,6 +94,7 @@ class WaveMakerComponent extends React.Component {
             /><br/>
           <input type="submit"></input>
         </form>
+        <JaxEquation equation={"f(t)="+this.state.texEquation} />
         {this.state.errorMessage?<p>{this.state.errorMessage}</p>:null}
       </div>
     )

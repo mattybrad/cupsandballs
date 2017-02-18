@@ -58,13 +58,7 @@ export default class SoundToy extends React.Component {
       c = <p>Loading...</p>
     }
     return(
-      <div
-        className={classNames(styles.this)}
-        style={{
-          width: this.props.width+"px",
-          height: this.props.height+"px"
-        }}
-      >
+      <div className={classNames(styles.this)}>
         {c}
       </div>
     )

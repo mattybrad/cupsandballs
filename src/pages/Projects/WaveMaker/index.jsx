@@ -41,17 +41,10 @@ class ProjectComponent extends React.Component {
       <div>
         <BackgroundDefinition primaryColor='#660000' secondaryColor='#CC0066' />
         <h1>Wave Maker</h1>
-        <SoundToy toy="wavemaker" width={760} height={400} />
+        <SoundToy toy="wavemaker" />
         <p>This sound toy allows you to turn equations into sound. Enter an equation, click "listen", and see what happens.</p>
-        <p>You can use any of the basic mathematical operators (add, subtract, multiply, divide), as well as functions that generate waves, such as "sin" (sine) and "cos" (cosine). The full list of available methods is as follows:</p>
-        <div className={classNames(styles.docs)}>
-          <h1>+</h1><p>Add numbers together.</p>
-          <h1>-</h1><p>Subtract one number from another.</p>
-          <h1>× or *</h1><p>Multiply two numbers together.</p>
-          <h1>÷ or /</h1><p>Divide one number by another.</p>
-          <h1>sin(x)</h1><p>The sine of a number in radians.</p>
-          <h1>cos(x)</h1><p>The cosine of a number in radians.</p>
-        </div>
+        <p>You can use any of the basic mathematical operators (add, subtract, multiply, divide), as well as functions that generate waves, such as "sin" (sine) and "cos" (cosine). Here are a few examples to get you started:</p>
+        <p>{"f(t)="}</p>
       </div>
     )
   }
