@@ -31,9 +31,9 @@ class ProjectComponent extends React.Component {
     }
   }
 
-  onValueChange(key,newValue) {
+  onValueChange(key,ev) {
     var obj = {};
-    obj[key] = newValue;
+    obj[key] = ev.target.value;
     this.props.updateSoundToy("randomspiel", obj);
   }
 
