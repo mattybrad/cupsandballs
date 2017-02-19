@@ -44,6 +44,7 @@ class ProjectComponent extends React.Component {
         <MusicDefinition musicDef={musicDef} />
         <h1>Randomspiel</h1>
         <SoundToy toy="randomspiel" width={760} height={400} />
+        <br/>
         <div>
           <NumberInput label="Columns" defaultValue={10} min={3} max={20} onChange={this.onValueChange.bind(this,"cols")} />
           <NumberInput label="Rows" defaultValue={6} min={3} max={20} onChange={this.onValueChange.bind(this,"rows")} />

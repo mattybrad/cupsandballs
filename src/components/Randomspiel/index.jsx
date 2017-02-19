@@ -2,6 +2,7 @@ import React from 'react';
 import Oscillator from '../Oscillator';
 import * as Actions from '../../actions/SoundToyActions';
 import { connect } from 'react-redux';
+import SketchFrame from '../SketchFrame';
 
 const mapStateToProps = (state) => {
   return {
@@ -132,7 +133,10 @@ class RandomspielComponent extends React.Component {
 
   render() {
     return(
-      <div ref="phaserDiv"></div>
+      <div>
+        <SketchFrame width={this.props.width} height={this.props.height} />
+        <div ref="phaserDiv"></div>
+      </div>
     )
   }
 }
