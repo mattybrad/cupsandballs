@@ -47,9 +47,7 @@ export default class SelfPortait extends React.Component {
   render() {
     return(
       <SketchFrame width={300} height={400}>
-        <div className={this.props.className}>
-          <canvas width={300} height={400} ref="cvs"></canvas>
-        </div>
+        <canvas width={300} height={400} ref="cvs"></canvas>
       </SketchFrame>
     )
   }
