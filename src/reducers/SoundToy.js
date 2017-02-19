@@ -5,7 +5,8 @@ export default function SoundToy(
     randomspiel: {
       cols: 10,
       rows: 5,
-      ballRate: 60
+      ballRate: 60,
+      ballSize: 50
     }
   },
   action

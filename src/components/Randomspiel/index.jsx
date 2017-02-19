@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
   return {
 		cols: state.SoundToy.randomspiel.cols,
 		rows: state.SoundToy.randomspiel.rows,
-    ballRate: state.SoundToy.randomspiel.ballRate
+    ballRate: state.SoundToy.randomspiel.ballRate,
+    ballSize: state.SoundToy.randomspiel.ballSize
   }
 }
 
@@ -49,7 +50,7 @@ class RandomspielComponent extends React.Component {
 
       create: function()  {
         game.physics.startSystem(Phaser.Physics.P2JS);
-        game.physics.p2.gravity.y = 1500;
+        game.physics.p2.gravity.y = 1000;
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.restitution = 0.3;
 
@@ -81,8 +82,8 @@ class RandomspielComponent extends React.Component {
               pinGroupTopSpace * game.height + i * pinGroupHeight * game.height / (rows - 1),
               'ball'
             );
-            pin.scale.set(0.2);
-            pin.body.setCircle(5);
+            pin.scale.set(0.1);
+            pin.body.setCircle(2.5);
             pin.body.static = true;
             pin.body.setCollisionGroup(pinCollisionGroup);
             pin.body.collides(ballCollisionGroup);
@@ -92,10 +93,12 @@ class RandomspielComponent extends React.Component {
 
       generateBall() {
         var ball = balls.create(0, 0, 'ball');
-        ball.body.y = -50;
+        var ballSize = 100 * Math.pow(component.props.ballSize / 100, 2);
+        ball.body.y = -ballSize;
         ball.body.x = game.width / 2 + 100 * (0.5-Math.random());
         ball.body.velocity.x = ball.body.velocity.y = 0;
-        ball.body.setCircle(25);
+        ball.body.setCircle(ballSize / 2);
+        ball.scale.setTo(ballSize / 50);
         ball.body.setCollisionGroup(ballCollisionGroup);
         ball.body.collides([pinCollisionGroup,ballCollisionGroup]);
       },

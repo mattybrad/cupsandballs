@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import styles from './index.css';
 
 export default class NumberInput extends React.Component {
 
@@ -36,11 +37,11 @@ export default class NumberInput extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className={classNames(styles.this)}>
         <label>{this.props.label || "Value"}: </label>
         <span>{this.state.currentValue} {this.props.unit} </span>
-        (<span onClick={this.changeValue.bind(this, -1)}>decrease, </span>
-        <span onClick={this.changeValue.bind(this, 1)}>increase</span>)
+        (<span className={classNames(styles.clickable)} onClick={this.changeValue.bind(this, -1)}>decrease, </span>
+        <span className={classNames(styles.clickable)} onClick={this.changeValue.bind(this, 1)}>increase</span>)
       </div>
     )
   }

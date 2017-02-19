@@ -1,0 +1,7 @@
+.this {
+  user-select: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
