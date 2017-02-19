@@ -1,0 +1,13 @@
+.this {
+  padding: 20px;
+  background: black;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.this textarea {
+  background: rgba(255,255,255,0.3);
+  color: white;
+  width: 95%;
+  height: 80px;
+}

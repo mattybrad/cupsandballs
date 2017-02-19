@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import math from 'mathjs';
 import NumberInput from '../NumberInput';
 import SketchFrame from '../SketchFrame';
+import classNames from 'classnames';
+import styles from './index.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -42,8 +44,16 @@ class WaveMakerComponent extends React.Component {
 
   onChange(param, ev) {
     var obj = {};
-    obj[param] = ev.target.value;
-    this.setState(obj);
+    var valid = true;
+    if(param=="equation") {
+      if(ev.target.value.slice(0,5)!="f(t)=") valid = false;
+      obj[param] = ev.target.value.slice(5);
+    } else {
+      obj[param] = ev.target.value;
+    }
+    if(valid) {
+      this.setState(obj);
+    }
   }
 
   onSubmit(ev) {
@@ -83,25 +93,27 @@ class WaveMakerComponent extends React.Component {
   render() {
     return(
       <SketchFrame width={760} height={300}>
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <div>
-            <textarea
-              value={this.state.equation}
-              onChange={this.onChange.bind(this,"equation")}
+        <div className={classNames(styles.this)}>
+          <form onSubmit={this.onSubmit.bind(this)}>
+            <div>
+              <textarea
+                value={"f(t)="+this.state.equation}
+                onChange={this.onChange.bind(this,"equation")}
+                />
+            </div>
+            <NumberInput
+              label="Duration"
+              unit="seconds"
+              onChange={this.onChange.bind(this,"duration")}
+              defaultValue={2}
+              min={1}
+              max={1000}
               />
-          </div>
-          <NumberInput
-            label="Duration"
-            unit="seconds"
-            onChange={this.onChange.bind(this,"duration")}
-            defaultValue={2}
-            min={1}
-            max={1000}
-            />
-          <br/>
-          <div onClick={this.onSubmit.bind(this)}>Click here to listen.</div>
-        </form>
-        {this.state.errorMessage?<p>{this.state.errorMessage}</p>:null}
+            <br/>
+            <span onClick={this.onSubmit.bind(this)}>Click here to listen.</span>
+          </form>
+          {this.state.errorMessage?<p>{this.state.errorMessage}</p>:null}
+        </div>
       </SketchFrame>
     )
   }
