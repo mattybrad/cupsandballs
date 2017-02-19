@@ -69,7 +69,7 @@ class WaveMakerComponent extends React.Component {
     for(var i=0; i<frameCount && !error; i++) {
       scope.t = i / window.actx.sampleRate;
       try {
-        channelData[i] = equationCode.eval(scope);
+        channelData[i] = 0.5 * equationCode.eval(scope);
       } catch(err) {
         error = true;
         console.log("error in formula");
