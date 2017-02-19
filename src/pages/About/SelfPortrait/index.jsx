@@ -29,13 +29,19 @@ export default class SelfPortait extends React.Component {
         var imgData = this.imgCtx.getImageData(x,y,1,1).data;
         var whiteness = Math.floor((imgData[0]+imgData[1]+imgData[2]) / 3);
         var trans = imgData[3] / 255;
+        var faceDistance = Math.sqrt(Math.pow(x-90,2)+Math.pow(y-200,2));
         c.beginPath();
-        c.arc(x,y,4*Math.random(),0,2*Math.PI);
+        c.arc(x,y,Math.max(2, faceDistance / 20),0,2*Math.PI);
         if(trans > 0.2) {
           c.fillStyle = "rgb("+[whiteness,whiteness,whiteness].join(",")+")";
         } else {
           c.fillStyle = Math.random() > 0.5 ? "#003300" : "#339933";
         }
+        // not working yet...
+        var closestEdge = Math.min(
+          c.canvas.width - x,
+          c.canvas.height - y
+        )
         c.fill();
       }
     }
