@@ -7,15 +7,18 @@ export default function SoundToy(
       rows: 5,
       ballRate: 60,
       ballSize: 50
+    },
+    wavemaker: {
+      exampleEquation: null
     }
   },
   action
 ) {
   switch(action.type) {
     case Actions.UPDATE_SOUND_TOY:
-    return Object.assign({}, state, {
-      randomspiel: Object.assign({}, state.randomspiel, action.vars)
-    });
+    var updateObject = {};
+    updateObject[action.toy] = Object.assign({}, state[action.toy], action.vars);
+    return Object.assign({}, state, updateObject);
 
     default:
     return state

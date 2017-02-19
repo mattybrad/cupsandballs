@@ -10,7 +10,7 @@ import styles from './index.css';
 
 const mapStateToProps = (state) => {
   return {
-
+    exampleEquation: state.SoundToy.wavemaker.exampleEquation
   }
 }
 
@@ -26,20 +26,24 @@ class WaveMakerComponent extends React.Component {
     super(props);
     this.state = {
       equation: "sin(2*pi*440*t)",
+      exampleEquation: null,
       duration: 1
     }
   }
 
   componentDidMount() {
-    window.m = math;
+    this.gainNode = window.actx.createGain();
+    this.gainNode.gain.value = 0.3;
+    this.gainNode.connect(window.actx.destination);
   }
 
   componentDidUpdate(prevProps, prevState) {
-
-  }
-
-  componentWillUnmount() {
-    // destroy game
+    if(prevProps.exampleEquation != this.props.exampleEquation) {
+      this.setState({
+        exampleEquation: this.props.exampleEquation,
+        equation: this.props.exampleEquation
+      }, this.onSubmit.bind(this))
+    }
   }
 
   onChange(param, ev) {
@@ -57,19 +61,21 @@ class WaveMakerComponent extends React.Component {
   }
 
   onSubmit(ev) {
-    ev.preventDefault();
+    if(ev) ev.preventDefault();
     var equationCode = math.compile(this.state.equation);
     var frameCount = window.actx.sampleRate * this.state.duration;
     var arrayBuffer = window.actx.createBuffer(1, frameCount, window.actx.sampleRate);
     var output = [];
-    var scope = {};
+    var scope = {
+      L: this.state.duration
+    };
     var channelData = arrayBuffer.getChannelData(0);
     console.log("start processing");
     var error = false;
     for(var i=0; i<frameCount && !error; i++) {
       scope.t = i / window.actx.sampleRate;
       try {
-        channelData[i] = 0.5 * equationCode.eval(scope);
+        channelData[i] = equationCode.eval(scope);
       } catch(err) {
         error = true;
         console.log("error in formula");
@@ -85,9 +91,15 @@ class WaveMakerComponent extends React.Component {
       })
       var bufferSource = window.actx.createBufferSource();
       bufferSource.buffer = arrayBuffer;
-      bufferSource.connect(window.actx.destination);
+      bufferSource.connect(this.gainNode);
       bufferSource.start();
     }
+  }
+
+  setEquation(equation) {
+    this.setState({
+      equation: equation
+    })
   }
 
   render() {
