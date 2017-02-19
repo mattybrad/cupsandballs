@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import SketchFrame from '../../../components/SketchFrame';
 import styles from './index.css';
 
 export default class SelfPortait extends React.Component {
@@ -50,7 +51,10 @@ export default class SelfPortait extends React.Component {
 
   render() {
     return(
-      <canvas width={300} height={400} className={this.props.className} ref="cvs"></canvas>
+      <div className={this.props.className}>
+        <SketchFrame width={300} height={400} />
+        <canvas width={300} height={400} ref="cvs"></canvas>
+      </div>
     )
   }
 }

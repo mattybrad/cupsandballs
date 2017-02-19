@@ -1,0 +1,19 @@
+.outer {
+  position: relative;
+}
+
+.inner {
+  position: absolute;
+}
+
+.inner canvas {
+  position: absolute;
+}
+
+.rightCanvas {
+  right: 0px;
+}
+
+.bottomCanvas {
+  bottom: 0px;
+}
