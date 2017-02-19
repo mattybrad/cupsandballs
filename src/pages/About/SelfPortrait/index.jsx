@@ -38,11 +38,6 @@ export default class SelfPortait extends React.Component {
         } else {
           c.fillStyle = Math.random() > 0.5 ? "#003300" : "#339933";
         }
-        // not working yet...
-        var closestEdge = Math.min(
-          c.canvas.width - x,
-          c.canvas.height - y
-        )
         c.fill();
       }
     }
@@ -51,10 +46,11 @@ export default class SelfPortait extends React.Component {
 
   render() {
     return(
-      <div className={this.props.className}>
-        <SketchFrame width={300} height={400} />
-        <canvas width={300} height={400} ref="cvs"></canvas>
-      </div>
+      <SketchFrame width={300} height={400}>
+        <div className={this.props.className}>
+          <canvas width={300} height={400} ref="cvs"></canvas>
+        </div>
+      </SketchFrame>
     )
   }
 }

@@ -51,13 +51,22 @@ export default class SketchFrame extends React.Component {
       top: -frameThickness/2+"px",
       left: -frameThickness/2+"px"
     }
+    var contentStyle = {
+      width: this.props.width+"px",
+      height: this.props.height+"px"
+    }
     return  (
-      <div className={classNames(styles.outer)}>
-        <div className={classNames(styles.inner)} style={divStyle}>
-          <canvas width={frameThickness} height={this.state.height} ref="left"></canvas>
-          <canvas className={classNames(styles.rightCanvas)} width={frameThickness} height={this.state.height} ref="right"></canvas>
-          <canvas width={this.state.width} height={frameThickness} ref="top"></canvas>
-          <canvas className={classNames(styles.bottomCanvas)} width={this.state.width} height={frameThickness} ref="bottom"></canvas>
+      <div>
+        <div className={classNames(styles.outer)}>
+          <div className={classNames(styles.inner)} style={divStyle}>
+            <canvas width={frameThickness} height={this.state.height} ref="left"></canvas>
+            <canvas className={classNames(styles.rightCanvas)} width={frameThickness} height={this.state.height} ref="right"></canvas>
+            <canvas width={this.state.width} height={frameThickness} ref="top"></canvas>
+            <canvas className={classNames(styles.bottomCanvas)} width={this.state.width} height={frameThickness} ref="bottom"></canvas>
+          </div>
+        </div>
+        <div style={contentStyle}>
+          {this.props.children}
         </div>
       </div>
     )

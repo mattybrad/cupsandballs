@@ -3,6 +3,8 @@ import Oscillator from '../Oscillator';
 import * as Actions from '../../actions/SoundToyActions';
 import { connect } from 'react-redux';
 import math from 'mathjs';
+import NumberInput from '../NumberInput';
+import SketchFrame from '../SketchFrame';
 
 const mapStateToProps = (state) => {
   return {
@@ -31,7 +33,7 @@ class WaveMakerComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    
+
   }
 
   componentWillUnmount() {
@@ -80,23 +82,27 @@ class WaveMakerComponent extends React.Component {
 
   render() {
     return(
-      <div>
+      <SketchFrame width={760} height={300}>
         <form onSubmit={this.onSubmit.bind(this)}>
-          <input
-            type="number"
-            value={this.state.duration}
+          <div>
+            <textarea
+              value={this.state.equation}
+              onChange={this.onChange.bind(this,"equation")}
+              />
+          </div>
+          <NumberInput
+            label="Duration"
+            unit="seconds"
             onChange={this.onChange.bind(this,"duration")}
-            /><br/>
-          <input
-            type="text"
-            value={this.state.equation}
-            onChange={this.onChange.bind(this,"equation")}
-            /><br/>
-          <input type="submit"></input>
+            defaultValue={2}
+            min={1}
+            max={1000}
+            />
+          <br/>
+          <div onClick={this.onSubmit.bind(this)}>Click here to listen.</div>
         </form>
-        <JaxEquation equation={"f(t)="+this.state.texEquation} />
         {this.state.errorMessage?<p>{this.state.errorMessage}</p>:null}
-      </div>
+      </SketchFrame>
     )
   }
 }

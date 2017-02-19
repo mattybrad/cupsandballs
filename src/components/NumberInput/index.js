@@ -11,7 +11,15 @@ export default class NumberInput extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.onChange) this.props.onChange(this.state.currentValue);
+    if(this.props.onChange) this.onChange();
+  }
+
+  onChange() {
+    // for compatibility with HTML input elements:
+    this.value = this.state.currentValue;
+    this.props.onChange({
+      target: this
+    });
   }
 
   changeValue(increment) {
@@ -22,7 +30,7 @@ export default class NumberInput extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(prevState.currentValue != this.state.currentValue && this.props.onChange) {
-      this.props.onChange(this.state.currentValue);
+      this.onChange();
     }
   }
 

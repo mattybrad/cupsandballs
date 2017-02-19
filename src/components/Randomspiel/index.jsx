@@ -133,10 +133,9 @@ class RandomspielComponent extends React.Component {
 
   render() {
     return(
-      <div>
-        <SketchFrame width={this.props.width} height={this.props.height} />
+      <SketchFrame width={this.props.width} height={this.props.height}>
         <div ref="phaserDiv"></div>
-      </div>
+      </SketchFrame>
     )
   }
 }

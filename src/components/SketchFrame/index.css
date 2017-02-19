@@ -1,5 +1,6 @@
 .outer {
   position: relative;
+  pointer-events: none;
 }
 
 .inner {
