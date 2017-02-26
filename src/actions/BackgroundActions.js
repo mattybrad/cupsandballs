@@ -6,6 +6,30 @@ export function setBackgroundActive(isActive) {
   }
 }
 
+export const SET_MUSIC_ACTIVE = 'SET_MUSIC_ACTIVE';
+export function setMusicActive(isActive) {
+  return {
+    type: SET_MUSIC_ACTIVE,
+    isActive
+  }
+}
+
+export const SET_CONSOLE_ACTIVE = 'SET_CONSOLE_ACTIVE';
+export function setConsoleActive(isActive) {
+  return {
+    type: SET_CONSOLE_ACTIVE,
+    isActive
+  }
+}
+
+export const SET_DOM_ACTIVE = 'SET_DOM_ACTIVE';
+export function setDomActive(isActive) {
+  return {
+    type: SET_DOM_ACTIVE,
+    isActive
+  }
+}
+
 export const SET_COLORS = 'SET_COLORS';
 export function setColors(primaryColor, secondaryColor, image) {
   return {

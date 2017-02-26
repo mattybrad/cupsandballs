@@ -2,7 +2,10 @@ import * as Actions from '../actions/BackgroundActions';
 
 export default function Background(
   state = {
-    active: true,
+    backgroundActive: true,
+    musicActive: true,
+    consoleActive: true,
+    domActive: true,
     primaryColor: '#00cc00',
     secondaryColor: '#0000cc',
     audioPlayer: null
@@ -12,7 +15,22 @@ export default function Background(
   switch(action.type) {
     case Actions.SET_BACKGROUND_ACTIVE:
     return Object.assign({}, state, {
-      active: action.isActive
+      backgroundActive: action.isActive
+    });
+
+    case Actions.SET_MUSIC_ACTIVE:
+    return Object.assign({}, state, {
+      musicActive: action.isActive
+    });
+
+    case Actions.SET_CONSOLE_ACTIVE:
+    return Object.assign({}, state, {
+      consoleActive: action.isActive
+    });
+
+    case Actions.SET_DOM_ACTIVE:
+    return Object.assign({}, state, {
+      domActive: action.isActive
     });
 
     case Actions.SET_COLORS:
