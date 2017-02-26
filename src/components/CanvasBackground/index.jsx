@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
+    active: state.Background.backgroundActive,
 		primaryColor: state.Background.primaryColor,
 		secondaryColor: state.Background.secondaryColor,
     image: state.Background.image,
@@ -27,6 +28,7 @@ class CanvasBackgroundComponent extends React.Component {
       changeTime: Date.now(),
       imageElement: null
     }
+    this.animationFrame = null;
   }
 
   componentDidMount() {
@@ -45,7 +47,7 @@ class CanvasBackgroundComponent extends React.Component {
 	}
 
   startAnimation() {
-    window.requestAnimationFrame(this.paint.bind(this));
+    this.animationFrame = window.requestAnimationFrame(this.paint.bind(this));
   }
 
   paint() {
@@ -97,7 +99,7 @@ class CanvasBackgroundComponent extends React.Component {
       ctx.stroke();
       ctx.fill();
     }
-    window.requestAnimationFrame(this.paint.bind(this));
+    this.animationFrame = window.requestAnimationFrame(this.paint.bind(this));
   }
 
   componentDidUpdate(prevProps) {
@@ -125,11 +127,24 @@ class CanvasBackgroundComponent extends React.Component {
         changeTime: Date.now()
       })
     }
+    if(prevProps.active && !this.props.active) {
+      window.cancelAnimationFrame(this.animationFrame);
+      this.animationFrame = null;
+    } else if(!prevProps.active && this.props.active) {
+      if(this.animationFrame) window.cancelAnimationFrame(this.animationFrame);
+      this.animationFrame = window.requestAnimationFrame(this.paint.bind(this));
+      this.initCanvas();
+      this.setState({
+        changeTime: Date.now()
+      })
+    }
   }
 
   render() {
     return(
-      <canvas ref="cvs" className={classNames(styles.canvasBackground)}></canvas>
+        this.props.active ?
+        <canvas ref="cvs" className={classNames(styles.canvasBackground)}></canvas> :
+        null
     )
   }
 }
