@@ -12,6 +12,7 @@ const TEMPO_RAMP_RATE = 5; // bpm per second
 
 const mapStateToProps = (state) => {
   return {
+    active: state.Background.musicActive,
 		musicDef: state.Background.musicDef
   }
 }
@@ -40,15 +41,15 @@ class MusicBackgroundComponent extends React.Component {
   }
 
   onBlur() {
-    //this.windowBlurred = true;
     this.lookAheadTime = 3;
     this.tickInterval = 1000;
-    if(this.tickTimeout) clearTimeout(this.tickTimeout);
-    this.tick();
+    if(this.props.active) {
+      if(this.tickTimeout) clearTimeout(this.tickTimeout);
+      this.tick();
+    }
   }
 
   onFocus() {
-    //this.windowBlurred = false;
     this.lookAheadTime = LOOK_AHEAD_TIME;
     this.tickInterval = TICK_INTERVAL;
   }
@@ -64,6 +65,12 @@ class MusicBackgroundComponent extends React.Component {
   componentDidUpdate(prevProps) {
     if(prevProps.musicDef != this.props.musicDef) {
       this.initNewModule();
+    }
+    if(prevProps.active && !this.props.active) {
+      window.clearTimeout(this.tickTimeout);
+    } else if(!prevProps.active && this.props.active) {
+      window.clearTimeout(this.tickTimeout);
+      this.tick();
     }
   }
 
