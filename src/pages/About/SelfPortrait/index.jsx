@@ -25,6 +25,7 @@ export default class SelfPortait extends React.Component {
   doFrame() {
     var c = this.ctx;
     var elapsed = Date.now() - this.startTime;
+    var elapsedFraction = Math.min(1, elapsed / 15000);
     if(this.imgCtx) {
       for(var i = 0; i < 10; i ++) {
         var x = Math.floor(Math.random() * c.canvas.width);
@@ -34,12 +35,12 @@ export default class SelfPortait extends React.Component {
         var trans = imgData[3] / 255;
         var faceDistance = Math.sqrt(Math.pow(x-90,2)+Math.pow(y-200,2));
         c.beginPath();
-        c.arc(x,y,Math.max(2, 30 * (1 - elapsed / 8000), faceDistance / 20),0,2*Math.PI);
+        c.arc(x,y,Math.max(2, 30 * (1 - elapsedFraction), faceDistance / 20),0,2*Math.PI);
         if(trans > 0.2) {
-          c.globalAlpha = 0.6;
+          c.globalAlpha = elapsedFraction * 0.6;
           c.fillStyle = "rgb("+[whiteness,whiteness,whiteness].join(",")+")";
         } else {
-          c.globalAlpha = 0.3;
+          c.globalAlpha = elapsedFraction * 0.3;
           c.fillStyle = Math.random() > 0.5 ? "#cccccc" : "#999999";
         }
         c.fill();

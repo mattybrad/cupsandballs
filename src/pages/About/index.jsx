@@ -18,6 +18,7 @@ export default class About extends React.Component {
         <div className={classNames(styles.selfPortrait)}>
           <SelfPortrait />
         </div>
+        <p>{"My day-job for the past few years has been as a web developer, creating interactive educational activities for children, which has fed my passion for coding. This has cross-pollinated with my musical side, so that my interests now include creating web apps using Javascript, creating physical inventions with Arduino, and using these disparate creations to make music."}</p>
         <p>{"I first started programming computers when I was at primary school. There was an RM Nimbus in the corner of the classroom, and we were encouraged to use the Logo program to draw patterns. We would send a miniature turtle around the screen using simple commands which trailed chunky 8-bit colours, yielding spirograph-like patterns."}</p>
         <p>{"It occurred to me that it would be possible to create a basic driving simulator by tracing out a geometric representation of a road, its painted lines, and a horizon, clearing and redrawing the screen several times a second to create the illusion of movement."}</p>
         <p>{"The first time I got to see a proper programming language in action was not long after. I was on holiday with a friend who was a couple of years older, and knew how to write programs in QBasic. I was obsessed with football at the time, so he showed me how to write an FA Cup simulator. It would take a list of teams and run through the tournament, giving a random score for each game and putting the winner through to the next round."}</p>
@@ -26,7 +27,7 @@ export default class About extends React.Component {
         <p>{"The next few years took me away from technology, as my musical schoolfriends' interests coalesced around folk music. I formed an acoustic duo with my friend Tom. We named ourselves Jack Loyd, a gestalt entity born of our middle names. We always thought we would write an epic song to explain the fictional character's origins, but we never did."}</p>
         <p>{"At university I studied physics, and regained my interest in programming. We wrote code in C on translucent iMac G3 computers, and the wonder of being able to coax a machine to do anything was rekindled."}</p>
         <p>{"Although the study of physics was fascinating, it failed to compete successfully with my newfound love of playing music with my band. Nothing could beat an evening drinking cheap Dutch lager and piecing together a new track in Cubase, getting carried away with distortion and reverb and then listening to the whole track with the lights out and the screen off, convinced of our genius."}</p>
-        
+
       </div>
     )
   }
