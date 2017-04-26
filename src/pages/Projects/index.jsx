@@ -15,7 +15,8 @@ export default class Projects extends React.Component {
       ProjectList.Randomspiel,
       ProjectList.WalkmanSynth,
       ProjectList.ProjectPluto,
-      ProjectList.WaveMaker
+      ProjectList.WaveMaker,
+      ProjectList.FakeModularSynth
     ];
     var randomProjectList = [];
     while(projectList.length) {
