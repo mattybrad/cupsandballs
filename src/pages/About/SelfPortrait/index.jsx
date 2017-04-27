@@ -35,7 +35,12 @@ export default class SelfPortait extends React.Component {
         var trans = imgData[3] / 255;
         var faceDistance = Math.sqrt(Math.pow(x-90,2)+Math.pow(y-200,2));
         c.beginPath();
-        c.arc(x,y,Math.max(2, 30 * (1 - elapsedFraction), faceDistance / 20),0,2*Math.PI);
+        var radius = Math.max(2, 30 * (1 - elapsedFraction), faceDistance / 20);
+        if(Math.random() > 0.5) {
+          c.arc(x,y,radius,0,2*Math.PI);
+        } else {
+          c.rect(x - radius, y - radius, Math.random()*2*radius, Math.random()*2*radius);
+        }
         if(trans > 0.2) {
           c.globalAlpha = elapsedFraction * 0.6;
           c.fillStyle = "rgb("+[whiteness,whiteness,whiteness].join(",")+")";
