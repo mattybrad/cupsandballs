@@ -3,9 +3,10 @@
   font-family: monospace;
   z-index: -1;
   position: fixed;
-  opacity: 0.2;
+  opacity: 0.15;
   animation-name: introFade;
   animation-duration: 10s;
+  font-size: 10px;
 }
 
 .logger.subFullHeight {
@@ -25,6 +26,6 @@
     opacity: 1;
   }
   to {
-    opacity: 0.2;
+    opacity: 0.15;
   }
 }

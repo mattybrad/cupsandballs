@@ -2,13 +2,14 @@
   text-align: left;
   position: fixed;
   left: 50%;
-  margin-left: -450px;
+  margin-left: -500px;
   margin-top: 0px;
   top: 0px;
   z-index: -2;
-  opacity: 0.2;
+  opacity: 0.15;
   animation-name: introFade;
   animation-duration: 2s;
+  font-size: 10px;
 }
 
 @keyframes introFade {
@@ -16,6 +17,6 @@
     opacity: 0;
   }
   to {
-    opacity: 0.2;
+    opacity: 0.15;
   }
 }

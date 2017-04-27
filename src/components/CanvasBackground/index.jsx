@@ -68,6 +68,14 @@ class CanvasBackgroundComponent extends React.Component {
         } else {
           ctx.globalAlpha = 0.04;
           ctx.fillStyle = Math.random()>0.5?this.props.primaryColor:this.props.secondaryColor;
+          var otherColors = [
+            '#cc0000',
+            '#00cc00',
+            '#0000cc',
+            '#000000',
+            '#663300'
+          ]
+          if(Math.random()>0.95) ctx.fillStyle = otherColors[Math.floor(Math.random() * otherColors.length)];
         }
         ctx.beginPath();
         ctx.arc(x,y,r,0,2 * Math.PI);
